@@ -1,0 +1,6 @@
+# 固定本项目的 Rust 工具链版本。
+# 修改版本时需同步更新 tools/macos/编译测试.command 中的 RUST_VERSION 与对应 SHA-256。
+[toolchain]
+channel = "1.99.1"
+components = ["clippy", "rustfmt"]
+profile = "minimal"

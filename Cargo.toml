@@ -1,0 +1,56 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/anyview-core",
+    "crates/anyview-ffi",
+    "crates/anyview-libraw",
+    "crates/anyview-jxr",
+    "crates/uniffi-bindgen",
+    "crates/anyview-fixtures",
+    "apps/linux",
+    # C# 绑定生成器（第三方）：用于 Windows 平台绑定生成（tools/windows/build-core.sh）。
+    "third_party/uniffi-bindgen-cs",
+]
+# 不带 -p 的 cargo build/test 只处理与平台无关的部分，避免在非 Linux 平台拉起 GTK。
+default-members = [
+    "crates/anyview-core",
+    "crates/anyview-ffi",
+    "crates/anyview-fixtures",
+]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2024"
+rust-version = "1.92"
+publish = false
+# 本项目使用 MIT 许可证（LICENSE）；第三方代码保留各自许可证（THIRD_PARTY_NOTICES.md）。
+license = "MIT"
+
+[workspace.dependencies]
+anyview-core = { path = "crates/anyview-core" }
+anyview-libraw = { path = "crates/anyview-libraw" }
+anyview-jxr = { path = "crates/anyview-jxr" }
+# 改 UniFFI 版本时同时改 third_party/uniffi-bindgen-cs/Cargo.toml：C# 生成器必须对应同一版 UniFFI。
+uniffi = "0.32"
+image = { version = "0.25", default-features = false }
+gtk = { package = "gtk4", version = "0.11" }
+async-channel = "2"
+serde_json = "1"
+# 修改日期按本地时区显示；仅启用时钟功能。
+chrono = { version = "0.4.45", default-features = false, features = ["clock"] }
+# 精确重绘路径的高质量缩放（Bicubic、Lanczos，SIMD 加速）。
+fast_image_resize = "6.1.0"
+# 图片内嵌 ICC → sRGB（Linux、Windows；macOS 交由 ColorSync 处理），纯 Rust 色彩管理。
+qcms = "0.3.0"
+# JPEG 快速路径（直接解码成 BGRA）与 EXIF 缩略图预览。
+zune-jpeg = "0.5.15"
+zune-core = "0.5.3"
+# 设置文件序列化（带版本号的 TOML）。
+toml = "1.2.0"
+
+[profile.release]
+debug = "line-tables-only"
+
+# 调试构建时依赖库也开优化，否则解码、缩放大图慢得无法使用。
+[profile.dev.package."*"]
+opt-level = 2

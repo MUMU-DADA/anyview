@@ -1,0 +1,3 @@
+# Windows 的脚本保持 CRLF 换行（cmd.exe 读 LF 换行的批处理可能出错；也免得 Git for Windows 的 autocrlf 改动它们）。
+*.cmd text eol=crlf
+*.ps1 text eol=crlf

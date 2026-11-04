@@ -1,0 +1,42 @@
+# Rust 构建产物
+/target/
+**/target/
+
+# 本地构建输出与缓存
+/out/
+
+# macOS / Swift 构建缓存
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+
+# Windows / C# 构建产物（仅匹配 Windows 工程目录，避免影响 Rust 的 src/bin/）
+apps/windows/**/bin/
+apps/windows/**/obj/
+apps/windows/**/*.user
+.vs/
+
+# 本地测试图片与测试报告
+/tests/fixtures/generated/
+/tests/fixtures/real/
+/tests/fixtures/raw/
+/reports/
+
+# 系统文件
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# 环境变量与密钥
+.env
+.env.*
+*.pem
+*.key
+*.p12
+
+# Python 缓存
+__pycache__/
