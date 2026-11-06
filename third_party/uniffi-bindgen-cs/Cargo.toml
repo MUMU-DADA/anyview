@@ -1,0 +1,39 @@
+# uniffi-bindgen-cs（NordSecurity，MPL-2.0）：生成 UniFFI 的 C# 绑定，给 Windows 界面用。
+# 来源、版本和本项目的改动见仓库根目录的 THIRD_PARTY_NOTICES.md。
+# 用于为 Windows 界面生成 C# 绑定（tools/windows/build-core.sh），不参与 macOS/Linux 主构建。
+[package]
+name = "uniffi-bindgen-cs"
+# 上游是 0.11.1+v0.31.0；本项目改成对应 UniFFI 0.32.2。
+version = "0.11.1+v0.32.2.anyview"
+edition = "2021"
+license = "MPL-2.0"
+publish = false
+
+[lib]
+name = "uniffi_bindgen_cs"
+path = "src/lib.rs"
+
+[[bin]]
+name = "uniffi-bindgen-cs"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+askama = { version = "0.13", default-features = false, features = ["config", "derive", "alloc"] }
+camino = "1.0.8"
+# 本项目改：不要默认功能（彩色输出、拼写建议），少拉进 atty 等已经不维护的库。
+clap = { version = "3.1", default-features = false, features = ["cargo", "std", "derive"] }
+extend = "1.1"
+fs-err = "2.7.0"
+heck = "0.4"
+paste = "1.0"
+serde = "1"
+serde_json = "1.0.0"
+# 本项目改：不要默认功能（只用 indent、dedent），与 UniFFI 一样，免得多拉进 ICU 断行库。
+textwrap = { version = "0.16", default-features = false }
+# 本项目改：与 uniffi_bindgen 0.32 用同一个 toml（它的接口里有 toml::Value），上游是 ">=0.8, <0.10"。
+toml.workspace = true
+# 本项目改：必须与核心用的 UniFFI 同一版本（根目录 Cargo.toml 的 uniffi），上游是 0.31.0。
+uniffi_bindgen = "=0.32.2"
+uniffi_meta = "=0.32.2"
+uniffi_udl = "=0.32.2"

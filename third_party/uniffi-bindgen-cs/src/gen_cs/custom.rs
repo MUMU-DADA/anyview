@@ -1,0 +1,36 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+use super::CodeType;
+use uniffi_bindgen::{interface::Literal, ComponentInterface};
+
+#[derive(Debug)]
+pub struct CustomCodeType {
+    name: String,
+    builtin: Box<dyn CodeType>,
+}
+
+impl CustomCodeType {
+    pub fn new(name: String, builtin: Box<dyn CodeType>) -> Self {
+        CustomCodeType { name, builtin }
+    }
+}
+
+impl CodeType for CustomCodeType {
+    fn type_label(&self, _ci: &ComponentInterface) -> String {
+        self.name.clone()
+    }
+
+    fn canonical_name(&self) -> String {
+        format!("Type{}", self.name)
+    }
+
+    fn literal(&self, _literal: &Literal, _ci: &ComponentInterface) -> String {
+        unreachable!("Can't have a literal of a custom type");
+    }
+
+    fn default_value(&self, ci: &ComponentInterface) -> String {
+        self.builtin.default_value(ci)
+    }
+}

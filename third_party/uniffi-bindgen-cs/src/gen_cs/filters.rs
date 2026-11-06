@@ -1,0 +1,301 @@
+use super::*;
+
+fn oracle() -> &'static CsCodeOracle {
+    &CsCodeOracle
+}
+
+pub(super) fn type_name(
+    as_ct: &impl AsCodeType,
+    ci: &ComponentInterface,
+) -> Result<String, askama::Error> {
+    Ok(as_ct.as_codetype().type_label(ci))
+}
+
+pub(super) fn type_name_custom(
+    typ: &Type,
+    ci: &ComponentInterface,
+) -> Result<String, askama::Error> {
+    // Lowercasing numeric types introduces a problem. In C# custom types are
+    // implemented with `using` directive, and the `using` directive expects
+    // and identifier on the right side of `=`. Lowercase numeric types are
+    // not identifiers, but rather reserved keywords. So its not possible to
+    // define a type alias using a lowercase numeric type as the underlying
+    // type. To use numeric types as the underlying type, the uppercase
+    // numeric system type counterparts must be used.
+    match typ {
+        Type::Boolean => Ok("Boolean".to_string()),
+        Type::Int8 => Ok("SByte".to_string()),
+        Type::Int16 => Ok("Int16".to_string()),
+        Type::Int32 => Ok("Int32".to_string()),
+        Type::Int64 => Ok("Int64".to_string()),
+        Type::UInt8 => Ok("Byte".to_string()),
+        Type::UInt16 => Ok("UInt16".to_string()),
+        Type::UInt32 => Ok("UInt32".to_string()),
+        Type::UInt64 => Ok("UInt64".to_string()),
+        Type::Float32 => Ok("Single".to_string()),
+        Type::Float64 => Ok("Double".to_string()),
+        Type::String => Ok("String".to_string()),
+        _ => type_name(typ, ci),
+    }
+}
+
+pub(super) fn canonical_name(as_ct: &impl AsCodeType) -> Result<String, askama::Error> {
+    Ok(as_ct.as_codetype().canonical_name())
+}
+
+pub(super) fn ffi_converter_name(as_ct: &impl AsCodeType) -> Result<String, askama::Error> {
+    Ok(as_ct.as_codetype().ffi_converter_name())
+}
+
+pub(super) fn error_converter_name(as_ct: &impl AsCodeType) -> Result<String, askama::Error> {
+    Ok(as_ct.as_codetype().error_converter_name())
+}
+
+pub(super) fn lower_fn(as_ct: &impl AsCodeType) -> Result<String, askama::Error> {
+    Ok(format!(
+        "{}.INSTANCE.Lower",
+        as_ct.as_codetype().ffi_converter_name()
+    ))
+}
+
+pub(super) fn allocation_size_fn(as_ct: &impl AsCodeType) -> Result<String, askama::Error> {
+    Ok(format!(
+        "{}.INSTANCE.AllocationSize",
+        as_ct.as_codetype().ffi_converter_name()
+    ))
+}
+
+pub(super) fn write_fn(as_ct: &impl AsCodeType) -> Result<String, askama::Error> {
+    Ok(format!(
+        "{}.INSTANCE.Write",
+        as_ct.as_codetype().ffi_converter_name()
+    ))
+}
+
+pub(super) fn lift_fn(as_ct: &impl AsCodeType) -> Result<String, askama::Error> {
+    Ok(format!(
+        "{}.INSTANCE.Lift",
+        as_ct.as_codetype().ffi_converter_name()
+    ))
+}
+
+pub(super) fn read_fn(as_ct: &impl AsCodeType) -> Result<String, askama::Error> {
+    Ok(format!(
+        "{}.INSTANCE.Read",
+        as_ct.as_codetype().ffi_converter_name()
+    ))
+}
+
+pub(super) fn render_literal(
+    default: &DefaultValue,
+    as_ct: &impl AsCodeType,
+    ci: &ComponentInterface,
+) -> Result<String, askama::Error> {
+    match default {
+        DefaultValue::Default => Ok(as_ct.as_codetype().default_value(ci)),
+        DefaultValue::Literal(literal) => Ok(as_ct.as_codetype().literal(literal, ci)),
+    }
+}
+
+pub(super) fn ffi_type(type_: &impl AsType) -> Result<FfiType, askama::Error> {
+    Ok(type_.as_type().into())
+}
+
+/// Get the C# syntax for representing a given low-level `FFIType`.
+pub(super) fn ffi_type_name(type_: &FfiType) -> Result<String, askama::Error> {
+    Ok(oracle().ffi_type_label(type_, false))
+}
+
+pub(super) fn arg_type_name(type_: &FfiType) -> Result<String, askama::Error> {
+    Ok(oracle().ffi_type_label(type_, true))
+}
+
+/// Get the idiomatic C# rendering of a class name (for enums, records, errors, etc).
+pub(super) fn class_name(nm: &str, ci: &ComponentInterface) -> Result<String, askama::Error> {
+    Ok(oracle().class_name(nm, ci))
+}
+
+/// Get the idiomatic C# rendering of a function name.
+pub(super) fn fn_name(nm: &str) -> Result<String, askama::Error> {
+    Ok(oracle().fn_name(nm))
+}
+
+/// Rename a method to avoid CS0542 when the method name matches the enclosing class name.
+/// Applied to both interface and class method declarations using the impl class name.
+pub(super) fn method_name(nm: &str, class_name: &str) -> Result<String, askama::Error> {
+    let method_name = oracle().fn_name(nm);
+    if method_name == class_name {
+        Ok(format!("{}ClassMethod", method_name))
+    } else {
+        Ok(method_name)
+    }
+}
+
+/// Generate a correct array allocation expression for potentially jagged arrays.
+/// Transforms e.g. "byte[]" → "new byte[length][]" to avoid the invalid "new byte[][length]" form.
+pub(super) fn array_new_expr(inner_type_name: &str) -> Result<String, askama::Error> {
+    let bracket_pos = inner_type_name.find('[').unwrap_or(inner_type_name.len());
+    let base = &inner_type_name[..bracket_pos];
+    let suffix = &inner_type_name[bracket_pos..];
+    Ok(format!("new {}[length]{}", base, suffix))
+}
+
+/// Get the idiomatic C# rendering of a variable name.
+pub(super) fn var_name(nm: impl AsRef<str>) -> Result<String, askama::Error> {
+    Ok(oracle().var_name(nm.as_ref()))
+}
+
+/// Get the idiomatic C# rendering of a property name (for record positional parameters).
+pub(super) fn property_name(nm: impl AsRef<str>) -> Result<String, askama::Error> {
+    Ok(oracle().property_name(nm.as_ref()))
+}
+
+/// Get the idiomatic C# rendering of an individual enum variant.
+pub(super) fn enum_variant(nm: &str) -> Result<String, askama::Error> {
+    Ok(oracle().enum_variant_name(nm))
+}
+
+/// Get the idiomatic C# rendering of an exception name, replacing
+/// `Error` with `Exception`.
+pub fn error_variant_name(v: &Variant) -> Result<String, askama::Error> {
+    let name = v.name().to_string().to_upper_camel_case();
+    Ok(oracle().convert_error_suffix(&name))
+}
+
+/// Get the idiomatic C# rendering of an FFI callback function name
+pub(super) fn ffi_callback_name(nm: &str) -> Result<String, askama::Error> {
+    Ok(oracle().ffi_callback_name(nm))
+}
+
+/// Get the idiomatic C# rendering of an FFI callback impl name
+pub(super) fn ffi_callback_impl(nm: &str) -> Result<String, askama::Error> {
+    Ok(oracle().ffi_callback_impl(nm))
+}
+
+/// Get the idiomatic C# rendering of an FFI callback registration function
+pub(super) fn ffi_callback_registration(nm: &str) -> Result<String, askama::Error> {
+    Ok(format!("{}.Register", oracle().ffi_callback_impl(nm)))
+}
+
+pub(super) fn ffi_foreign_future_complete(return_type: &Type) -> Result<String, askama::Error> {
+    Ok(format!(
+        "UniffiForeignFutureComplete{}",
+        FfiType::return_type_name(Some(&FfiType::from(return_type))).to_upper_camel_case()
+    ))
+}
+
+/// Get the idiomatic C# rendering of an FFI struct name
+pub(super) fn ffi_struct_name(nm: &str) -> Result<String, askama::Error> {
+    Ok(oracle().ffi_struct_name(nm))
+}
+
+/// Get object name tuple (interface, impl)
+pub(super) fn object_names(
+    obj: &Object,
+    ci: &ComponentInterface,
+) -> Result<(String, String), askama::Error> {
+    Ok(oracle().object_names(obj, ci))
+}
+
+/// Get the idiomatic C# rendering of docstring
+pub(super) fn docstring(docstring: &str, spaces: &i32) -> Result<String, askama::Error> {
+    let middle = textwrap::indent(&textwrap::dedent(docstring), "/// ");
+    let wrapped = format!("/// <summary>\n{middle}\n/// </summary>");
+
+    let spaces = usize::try_from(*spaces).unwrap_or_default();
+    Ok(textwrap::indent(&wrapped, &" ".repeat(spaces)))
+}
+
+/// Orders fields in a way that avoids CS1737 errors
+pub(super) fn order_fields(fields: &[Field]) -> Result<(Vec<Field>, bool), askama::Error> {
+    let original_fields = fields.to_vec();
+    let mut fields = original_fields.clone();
+    // fields with default values must come after fields without default values
+    // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1737
+    fields.sort_by_key(|field| field.default_value().is_some());
+    let is_reordered = fields != original_fields;
+    Ok((fields, is_reordered))
+}
+
+/// If the name is empty create one based on position of the variable
+pub(super) fn or_pos_var(nm: &str, pos: &usize) -> Result<String, askama::Error> {
+    if nm.is_empty() {
+        Ok(format!("v{pos}"))
+    } else {
+        Ok(nm.to_string())
+    }
+}
+
+// Bare decimal with no suffix or radix — C# enum initializers don't accept type suffixes.
+// When UniFFI wraps an unsigned variant value into Literal::Int (e.g. an implicit u64
+// value above i64::MAX), reinterpret the bits as the repr's unsigned type so the emitted
+// literal is valid in a `enum : ulong` (or u32/u16/u8) context.
+pub(super) fn variant_discr_literal(e: &Enum, index: &usize) -> Result<String, askama::Error> {
+    match e.variant_discr(*index).expect("invalid discriminant index") {
+        Literal::UInt(v, _, _) => Ok(v.to_string()),
+        Literal::Int(v, _, _) => match e.variant_discr_type() {
+            Some(Type::UInt8) => Ok((v as u8).to_string()),
+            Some(Type::UInt16) => Ok((v as u16).to_string()),
+            Some(Type::UInt32) => Ok((v as u32).to_string()),
+            Some(Type::UInt64) => Ok((v as u64).to_string()),
+            _ => Ok(v.to_string()),
+        },
+        _ => Err(askama::Error::Fmt),
+    }
+}
+
+pub(super) fn variant_discr_type_name(typ: &Type) -> Result<String, askama::Error> {
+    match typ {
+        Type::Int8 => Ok("sbyte".to_string()),
+        Type::Int16 => Ok("short".to_string()),
+        Type::Int32 => Ok("int".to_string()),
+        Type::Int64 => Ok("long".to_string()),
+        Type::UInt8 => Ok("byte".to_string()),
+        Type::UInt16 => Ok("ushort".to_string()),
+        Type::UInt32 => Ok("uint".to_string()),
+        Type::UInt64 => Ok("ulong".to_string()),
+        _ => Err(askama::Error::Fmt),
+    }
+}
+
+/// Anyview: the C# names of all variants of an enum. Variants are nested records of the enum's
+/// record, so inside every variant the names of its siblings hide fields and types with the same
+/// name, not only the name of the variant itself.
+fn variant_class_names(e: &Enum, ci: &ComponentInterface) -> Vec<String> {
+    e.variants()
+        .iter()
+        .map(|v| oracle().class_name(v.name(), ci))
+        .collect()
+}
+
+/// Anyview: field name of an enum variant. Adds `Value` when it equals the name of any variant of
+/// the enum (CS8866); upstream's `enum_field_name` macro only checks the field's own variant.
+pub(super) fn enum_field_name(
+    field_name: impl AsRef<str>,
+    e: &Enum,
+    ci: &ComponentInterface,
+) -> Result<String, askama::Error> {
+    let field_name = field_name.as_ref();
+    Ok(if variant_class_names(e, ci).iter().any(|n| n == field_name) {
+        format!("{field_name}Value")
+    } else {
+        field_name.to_string()
+    })
+}
+
+/// Anyview: type of an enum variant's field. Qualified with the namespace when it equals the name of
+/// any variant of the enum; upstream's `enum_parameter_type_name` macro only checks its own variant.
+pub(super) fn enum_parameter_type_name(
+    type_name: impl AsRef<str>,
+    e: &Enum,
+    ci: &ComponentInterface,
+    namespace: impl AsRef<str>,
+) -> Result<String, askama::Error> {
+    let type_name = type_name.as_ref();
+    let namespace = namespace.as_ref();
+    Ok(if variant_class_names(e, ci).iter().any(|n| n == type_name) {
+        format!("{namespace}.{type_name}")
+    } else {
+        type_name.to_string()
+    })
+}
