@@ -1,0 +1,54 @@
+[package]
+name = "anyview-core"
+description = "Anyview 共用核心：与平台无关的业务逻辑"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+# 基础图片的 Rust 解码器（docs/FORMATS.md）
+image = { workspace = true, features = ["png", "jpeg", "gif", "webp", "bmp", "tiff", "tga", "pnm", "qoi", "ico", "exr", "hdr"] }
+chrono.workspace = true
+# RAW 完整解码：LibRaw，从源代码编译。
+anyview-libraw.workspace = true
+fast_image_resize.workspace = true
+qcms.workspace = true
+zune-jpeg.workspace = true
+zune-core.workspace = true
+toml.workspace = true
+# 压缩包：只解压。RAR 用 UnRAR 的源代码（许可证只允许解压）。
+zip = { version = "8.6", default-features = false, features = ["deflate-flate2-zlib-rs", "deflate64", "bzip2", "lzma"] }
+sevenz-rust2 = { version = "=0.24.1", default-features = false, features = ["bzip2", "deflate", "ppmd"] }
+unrar = "0.5.8"
+# DDS 纹理压缩块（BC1–BC7）：纯 Rust 移植的 bcdec。
+bcdec_rs = "=0.2.0"
+# JPEG XL（含动图）：纯 Rust 解码器。
+jxl-oxide = { version = "=0.12.6", default-features = false }
+# SVG：按显示大小渲染；文字用系统字体，不读取外部资源。
+resvg = { version = "=0.48.1", default-features = false, features = ["svgz", "text", "system-fonts", "memmap-fonts", "raster-images"] }
+# PSD 图层的 ZIP 压缩数据；测试里也用它做 SVGZ。
+flate2 = "1.1"
+serde_json.workspace = true
+# PSD 的矢量蒙版（形状图层）光栅化：与 resvg 用的是同一个。
+tiny-skia = { version = "0.12", default-features = false, features = ["std"] }
+# JPEG 2000：纯 Rust 解码器（hayro 项目的一部分），不用 C 库。
+hayro-jpeg2000 = { version = "=0.5.0", default-features = false, features = ["std", "simd"] }
+# Clip Studio Paint（.clip）：文件里内嵌的 SQLite 数据库存着整幅画布的预览图。SQLite 从源代码编译（公有领域）。
+rusqlite = { version = "=0.41.1", default-features = false, features = ["bundled", "serialize", "hooks"] }
+# JPEG XR：jxrlib（BSD），从源代码编译；Windows 先用系统的 WIC，WIC 解不了时用它。
+anyview-jxr.workspace = true
+# 规范路径（打开文件时）：Windows 上 std::fs::canonicalize 给出 \\?\C:\… 这种写法，系统的很多接口（WIC、剪贴板、
+# 回收站、桌面背景、资源管理器）不认；dunce 在能用普通写法时去掉这个前缀，其他系统上就是 std 的。
+dunce = "=1.0.5"
+# AVIF：系统没有 AVIF 解码器时用（Windows 没装 AV1 扩展、Linux 没装 libheif）。容器用 Mozilla 的 mp4parse
+# （MPL-2.0，Firefox 用的就是它），AV1 用 rav1d（dav1d 的 Rust 移植，BSD），不带汇编，都是 Rust。
+mp4parse = "=0.17.0"
+rav1d = { version = "=1.1.0", default-features = false, features = ["bitdepth_8", "bitdepth_16"] }
+libc = "0.2"
+
+# HEIC：运行时打开 libheif（Linux 是系统里的，Windows 是程序自带的 heif.dll），只动态加载。
+# macOS 用系统的 ImageIO，不需要。
+[target.'cfg(not(target_os = "macos"))'.dependencies]
+libloading = "0.9"

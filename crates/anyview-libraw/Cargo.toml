@@ -1,0 +1,13 @@
+[package]
+name = "anyview-libraw"
+description = "RAW 完整解码：编译 third_party/libraw（LibRaw，按 CDDL 使用），加一层很薄的接口"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+# 本 crate 的代码是 MIT；编进来的 LibRaw 按 CDDL-1.0 使用（THIRD_PARTY_NOTICES.md）。
+license = "MIT AND CDDL-1.0"
+build = "build.rs"
+
+[build-dependencies]
+cc = "1.11"

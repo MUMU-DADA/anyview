@@ -1,0 +1,2254 @@
+# Anyview 要翻译的全部句子（由 i18n.rs 的测试生成，不要手改）。键是英文原文；注释是中文原文和用在哪里。
+# 翻译文件 locales/<语言>.toml 用同样的键，值是译文；检查：python3 tools/i18n/messages.py check <语言>。
+
+# 中文：（等效 {value}）
+# 用在：text (InfoFocal35)
+" ({value} equiv.)" = ""
+
+# 中文：、HEIF 序列
+# 用在：help.rs (tr!)
+", HEIF sequences" = ""
+
+# 中文：AI 生成: {tool}
+# 用在：overlay.rs (tr!)
+"AI-generated: {tool}" = ""
+
+# 中文：AI 生成: {tool} (按 {key} 看提示词)
+# 用在：overlay.rs (tr!)
+"AI-generated: {tool} (press {key} for the prompt)" = ""
+
+# 中文：AVIF 图像序列
+# 用在：packaging.rs (tr!)
+"AVIF Image Sequence" = ""
+
+# 中文：AVIF：读不懂文件结构（{e}）
+# 用在：avif.rs (msg!)
+"AVIF: can't read the file structure ({e})" = ""
+
+# 中文：AVIF：暂不支持恒定亮度的颜色矩阵（{matrix}）
+# 用在：avif.rs (msg!)
+"AVIF: constant-luminance color matrices aren't supported yet ({matrix})" = ""
+
+# 中文：AVIF：AV1 数据有错（{sent}）
+# 用在：avif.rs (msg!)
+"AVIF: error in the AV1 data ({sent})" = ""
+
+# 中文：AVIF：帧的数据不全
+# 用在：avif.rs (msg!)
+"AVIF: frame data is incomplete" = ""
+
+# 中文：AVIF：拼接（grid）的图片暂不支持
+# 用在：avif.rs (msg!)
+"AVIF: grid images aren't supported yet" = ""
+
+# 中文：AVIF：图像数据不全
+# 用在：avif.rs (msg!)
+"AVIF: image data is incomplete" = ""
+
+# 中文：AVIF：尺寸不对
+# 用在：avif.rs (msg!)
+"AVIF: invalid size" = ""
+
+# 中文：AVIF：文件里没有图像
+# 用在：avif.rs (msg!)
+"AVIF: no image in the file" = ""
+
+# 中文：AVIF：内存不够
+# 用在：avif.rs (msg!)
+"AVIF: not enough memory" = ""
+
+# 中文：AVIF：AV1 解不出来（{result}）
+# 用在：avif.rs (msg!)
+"AVIF: the AV1 data could not be decoded ({result})" = ""
+
+# 中文：AVIF：AV1 解码器打不开
+# 用在：avif.rs (msg!)
+"AVIF: the AV1 decoder could not be started" = ""
+
+# 中文：AVIF：AV1 没有解出图像
+# 用在：avif.rs (msg!)
+"AVIF: the AV1 decoder produced no image" = ""
+
+# 中文：AVIF：透明通道的尺寸与图像不同
+# 用在：avif.rs (msg!)
+"AVIF: the alpha channel's size differs from the image" = ""
+
+# 中文：关于
+# 用在：action (about)
+"About" = ""
+
+# 中文：关于 Anyview
+# 用在：macOS action (about)
+"About Anyview" = ""
+
+# 中文：添加快捷键
+# 用在：text (SettingsAddShortcut)
+"Add Shortcut" = ""
+
+# 中文：在右键菜单里加“用 Anyview 浏览图片”
+# 用在：settings label (context_menu.enabled)
+"Add “Browse with Anyview” to the right-click menu" = ""
+
+# 中文：同时删除 Anyview 的设置和记住的位置吗？⏎（{folder}）
+# 用在：packaging.rs (tr!)
+"Also delete Anyview’s settings and remembered positions?\n({folder})" = ""
+
+# 中文：总在最前
+# 用在：action (always_on_top)
+"Always on Top" = ""
+
+# 中文：总在最前
+# 用在：settings label (general.always_on_top)
+"Always on top" = ""
+
+# 中文：一直显示窗口边框，像普通的看图软件
+# 用在：settings detail (browse.show_main_window)
+"Always show the window frame, like an ordinary viewer" = ""
+
+# 中文：APNG 动画图像
+# 用在：packaging.rs (tr!)
+"Animated PNG Image" = ""
+
+# 中文：动图
+# 用在：help.rs (tr!)
+"Animations" = ""
+
+# 中文：Anyview（必需）
+# 用在：packaging.rs (tr!)
+"Anyview (required)" = ""
+
+# 中文：Anyview 预览
+# 用在：packaging.rs (tr!)
+"Anyview Preview" = ""
+
+# 中文：Anyview 缩略图
+# 用在：packaging.rs (tr!)
+"Anyview Thumbnails" = ""
+
+# 中文：Anyview 已经装好。⏎⏎Windows 不允许程序自己成为默认程序：勾上下面第二项，会打开系统的“默认应用”设置，在“照片查看器”里选 Anyview 就行。
+# 用在：packaging.rs (tr!)
+"Anyview has been installed.\n\nWindows doesn’t let a program make itself the default: tick the second box and Settings opens on Default apps, where you pick Anyview under Photo viewer." = ""
+
+# 中文：Anyview 没有改过默认程序，不用恢复
+# 用在：text (SettingsDefaultViewerNothing)
+"Anyview hasn’t changed any default apps" = ""
+
+# 中文：已把 Anyview 设为图片的默认程序
+# 用在：text (SettingsDefaultViewerDone)
+"Anyview is now the default app for images" = ""
+
+# 中文：已把 Anyview 设为 {count} 种图片的默认程序
+# 用在：text (SettingsDefaultViewerDoneCount)
+"Anyview is now the default app for {count} image types" = ""
+
+# 中文：Anyview 使用 MIT 许可证，可以自由使用、修改和分享。它包含的其他开源软件保留各自的许可证，下面是这些许可证的原文。
+# 用在：licenses.rs (tr!)
+"Anyview is released under the MIT License: you may use, change and share it freely. The software from other projects that it includes keeps its own license; the original texts follow." = ""
+
+# 中文：Anyview 正在运行。请先关闭它，再点“重试”。
+# 用在：packaging.rs (tr!)
+"Anyview is running. Close it, then click Retry." = ""
+
+# 中文：系统自己不认识的格式（如 QOI、PSD、SVG、RAW）由 Anyview 做缩略图，不用把 Anyview 设成默认程序；可以在“上下文菜单”页里按格式关掉。
+# 用在：settings label (formats.note_windows_thumbnails)
+"Anyview makes the thumbnails for formats Windows doesn’t know (such as QOI, PSD, SVG, RAW), whether or not it is the default app; you can turn formats off on the Context Menu page." = ""
+
+# 中文：Anyview 免安装版：这个文件在的时候，设置、最近打开的文件和压缩包里看到的位置都存在旁边的 data 文件夹里，不写进系统。不要了就把整个文件夹删掉，什么都不会留下。删掉这个文件，Anyview 就改用系统里你的用户文件夹。
+# 用在：packaging.rs (tr!)
+"Anyview portable: while this file is here, settings, recent files and archive positions are kept in the data folder next to it, and nothing is written to the system. To remove Anyview, delete the whole folder; nothing is left behind. If you delete this file, Anyview uses your user folder instead." = ""
+
+# 中文：程序
+# 用在：settings label (misc.editor)
+"App" = ""
+
+# 中文：右键单击一张图片或压缩包时出现
+# 用在：settings detail (context_menu.enabled)
+"Appears when you right-click an image or archive" = ""
+
+# 中文：像素边缘为“减淡+锐化”时生效
+# 用在：settings detail (image.strong_sharpen)
+"Applies when pixel edges are set to Soften+Sharpen" = ""
+
+# 中文：压缩包
+# 用在：settings label (bookmarks.archive_heading)
+"Archives" = ""
+
+# 中文：压缩包（当作文件夹浏览）
+# 用在：help.rs (tr!)
+"Archives (browsed like folders)" = ""
+
+# 中文：询问
+# 用在：settings option (general.at_archive_boundary)，settings option (general.at_boundary)
+"Ask" = ""
+
+# 中文：翻到第一张或最后一张时
+# 用在：settings label (general.boundary_heading)
+"At the first or last image" = ""
+
+# 中文：向前 10 张
+# 用在：menu item (back_10)
+"Back 10" = ""
+
+# 中文：向上10张图片
+# 用在：action (back_10)
+"Back 10 Images" = ""
+
+# 中文：向前10张图片
+# 用在：mappable action (back_10)
+"Back 10 images" = ""
+
+# 中文：随机向前
+# 用在：menu item (random_back)
+"Back from Random" = ""
+
+# 中文：向前随机转到某张图片
+# 用在：action (random_back)
+"Back from Random Image" = ""
+
+# 中文：向前随机转到某张图片
+# 用在：mappable action (random_back)
+"Back from random image" = ""
+
+# 中文：背景
+# 用在：settings label (browse.background_heading)
+"Background" = ""
+
+# 中文：背景颜色
+# 用在：settings label (browse.background_color)
+"Background color" = ""
+
+# 中文：背景图片
+# 用在：settings label (browse.background_image)
+"Background image" = ""
+
+# 中文：Bicubic 插值（慢，高品质）
+# 用在：action (interp_bicubic)
+"Bicubic (Slow, High Quality)" = ""
+
+# 中文：Bicubic（慢，画质好）
+# 用在：settings option (image.interpolation)
+"Bicubic (slow, high quality)" = ""
+
+# 中文：Bilinear 插值（快）
+# 用在：action (interp_bilinear)
+"Bilinear (Fast)" = ""
+
+# 中文：Bilinear（快）
+# 用在：settings option (image.interpolation)
+"Bilinear (fast)" = ""
+
+# 中文：黑色
+# 用在：settings option (image.alpha_background)
+"Black" = ""
+
+# 中文：书签
+# 用在：settings page (bookmarks)
+"Bookmarks" = ""
+
+# 中文：用 Anyview 浏览图片
+# 用在：winshell.rs (tr!)
+"Browse with Anyview" = ""
+
+# 中文：浏览
+# 用在：settings page (browse)
+"Browsing" = ""
+
+# 中文：选了“默认”的按键照常用原来的功能；选了别的，单击这个按键就执行所选的动作。
+# 用在：settings page (mouse)
+"Buttons set to “Default” keep their usual function; otherwise a click runs the chosen action." = ""
+
+# 中文：按扩展名设置
+# 用在：settings button (formats.buttons_windows)
+"By Extension" = ""
+
+# 中文：缓存
+# 用在：settings label (image.cache_heading)
+"Cache" = ""
+
+# 中文：缓存大小
+# 用在：settings label (image.cache_mb)
+"Cache size" = ""
+
+# 中文：相机: {value}
+# 用在：text (InfoCamera)
+"Camera: {value}" = ""
+
+# 中文：各家相机
+# 用在：help.rs (tr!)
+"Cameras" = ""
+
+# 中文：无法从压缩包里读出：{e}
+# 用在：decode.rs (msg!)
+"Can't read from the archive: {e}" = ""
+
+# 中文：无法读取文件：{e}
+# 用在：decode.rs (msg!)
+"Can't read the file: {e}" = ""
+
+# 中文：取消
+# 用在：i18n.rs (tr!)，text (ButtonCancel)
+"Cancel" = ""
+
+# 中文：无法删除：{message}
+# 用在：text (NoticeTrashFailed)
+"Cannot delete: {message}" = ""
+
+# 中文：无法设为默认程序：{message}
+# 用在：text (SettingsDefaultViewerFailed)
+"Cannot make Anyview the default app: {message}" = ""
+
+# 中文：无法用图像编辑器打开：{message}
+# 用在：text (NoticeEditorFailed)
+"Cannot open in the image editor: {message}" = ""
+
+# 中文：无法打开：{message}
+# 用在：text (NoticeOpenFailed)
+"Cannot open: {message}" = ""
+
+# 中文：无法保存设置：{message}
+# 用在：text (NoticeSettingsSaveFailed)
+"Cannot save the settings: {message}" = ""
+
+# 中文：无法显示这张图片：{message}
+# 用在：text (NoticeImageFailed)
+"Cannot show this image: {message}" = ""
+
+# 中文：在一个窗口里改的设置，别的窗口也跟着用
+# 用在：settings detail (bookmarks.share)
+"Changes made in one window apply to the others" = ""
+
+# 中文：检查更新
+# 用在：settings label (general.check_updates)
+"Check for updates" = ""
+
+# 中文：网格
+# 用在：settings option (image.alpha_background)，settings option (image.gif_background)
+"Checkerboard" = ""
+
+# 中文：在系统设置里选 Anyview
+# 用在：settings label (formats.buttons_windows)
+"Choose Anyview in Windows Settings" = ""
+
+# 中文：第 {row} 行还没有选择操作。
+# 用在：settings.rs (tr!)
+"Choose an action for row {row}." = ""
+
+# 中文：选取…
+# 用在：settings button (browse.background_image_path)，settings button (misc.editor)，settings button (misc.folder1)，settings button (misc.folder2)
+"Choose…" = ""
+
+# 中文：清除
+# 用在：settings button (bookmarks.clear_archive)，settings.rs (tr!)
+"Clear" = ""
+
+# 中文：清除菜单
+# 用在：action (clear_recent)
+"Clear Menu" = ""
+
+# 中文：单击
+# 用在：settings label (mouse.left)
+"Click" = ""
+
+# 中文：单击窗口两侧翻页
+# 用在：settings label (mouse.click_sides)
+"Click the sides to turn pages" = ""
+
+# 中文：左键：向下，右键：向下10张
+# 用在：text (BarNextTip)
+"Click: next, right-click: forward 10" = ""
+
+# 中文：左键：向上，右键：向上10张
+# 用在：text (BarPrevTip)
+"Click: previous, right-click: back 10" = ""
+
+# 中文：Clip Studio Paint（画布预览图）
+# 用在：help.rs (tr!)
+"Clip Studio Paint (canvas preview)" = ""
+
+# 中文：Clip Studio Paint 插画
+# 用在：packaging.rs (tr!)
+"Clip Studio Paint Illustration" = ""
+
+# 中文：Clip Studio Paint 插画
+# 用在：packaging.rs (tr!)
+"Clip Studio Paint illustration" = ""
+
+# 中文：Clip Studio Paint：预览图解不开（{e}）
+# 用在：clip.rs (msg!)
+"Clip Studio Paint: can't decode the preview ({e})" = ""
+
+# 中文：Clip Studio Paint：读不出画布预览图（{e}）
+# 用在：clip.rs (msg!)
+"Clip Studio Paint: can't read the canvas preview ({e})" = ""
+
+# 中文：Clip Studio Paint：文件里没有数据库（文件不完整？）
+# 用在：clip.rs (msg!)
+"Clip Studio Paint: no database in the file (is it incomplete?)" = ""
+
+# 中文：关闭
+# 用在：action (close_image)
+"Close" = ""
+
+# 中文：关闭图片
+# 用在：menu item (close_image)
+"Close Image" = ""
+
+# 中文：关闭窗口
+# 用在：action (close_window)
+"Close Window" = ""
+
+# 中文：关闭窗口（最后一个窗口时退出）
+# 用在：action (close_or_quit)
+"Close Window (Quit at the Last One)" = ""
+
+# 中文：颜色与透明
+# 用在：settings label (image.color_heading)
+"Color and transparency" = ""
+
+# 中文：按窗口所在显示器的配置文件显示颜色，给校色过的显示器用
+# 用在：settings detail (image.monitor_icc)
+"Colors follow the profile of the monitor the window is on; for calibrated monitors" = ""
+
+# 中文：按窗口所在显示器的配置文件显示颜色，给校色过的显示器用。Wayland 桌面由系统负责，这一项不起作用
+# 用在：settings detail (image.monitor_icc)
+"Colors follow the profile of the monitor the window is on; for calibrated monitors. Wayland desktops do this themselves, so it has no effect there" = ""
+
+# 中文：漫画压缩包
+# 用在：packaging.rs (tr!)
+"Comic Archive" = ""
+
+# 中文：常见格式
+# 用在：help.rs (tr!)
+"Common formats" = ""
+
+# 中文：删除文件前先确认
+# 用在：settings label (general.confirm_delete)
+"Confirm before deleting files" = ""
+
+# 中文：上下文菜单
+# 用在：action (context_menu)，settings page (context_menu)
+"Context Menu" = ""
+
+# 中文：上下文菜单
+# 用在：mappable action (context_menu)
+"Context menu" = ""
+
+# 中文：控制栏
+# 用在：settings label (browse.hide_control_bar)
+"Control bar" = ""
+
+# 中文：已复制
+# 用在：generation.rs (tr!)
+"Copied" = ""
+
+# 中文：已复制到剪贴板
+# 用在：text (NoticeCopied)
+"Copied to the clipboard" = ""
+
+# 中文：已复制到“{folder}”：{name}
+# 用在：text (NoticeCopiedTo)
+"Copied to “{folder}”: {name}" = ""
+
+# 中文：复制 ／ 拷贝
+# 用在：generation.rs (tr!)，macOS action (copy_to_clipboard)
+"Copy" = ""
+
+# 中文：复制图片信息
+# 用在：text (InfoCopy)
+"Copy Image Info" = ""
+
+# 中文：复制原文
+# 用在：generation.rs (tr!)
+"Copy Raw Text" = ""
+
+# 中文：复制到剪贴板
+# 用在：action (copy_to_clipboard)
+"Copy to Clipboard" = ""
+
+# 中文：复制到 图片文件夹 ／ 复制到图片文件夹
+# 用在：action (copy_to_folder1)，menu item (copy_to_folder1)
+"Copy to Image Folder" = ""
+
+# 中文：复制到 图片文件夹 2 ／ 复制到图片文件夹 2
+# 用在：action (copy_to_folder2)，menu item (copy_to_folder2)
+"Copy to Image Folder 2" = ""
+
+# 中文：“复制到图片文件夹”“移动到图片文件夹”把图片放到这里。
+# 用在：settings label (misc.folders_note)
+"Copy to Image Folder and Move to Image Folder put images here." = ""
+
+# 中文：复制到 图片文件夹
+# 用在：mappable action (copy_to_folder1)
+"Copy to image folder" = ""
+
+# 中文：复制到 图片文件夹 2
+# 用在：mappable action (copy_to_folder2)
+"Copy to image folder 2" = ""
+
+# 中文：核心通信正常（{ms} ms）
+# 用在：text (CoreLinkOk)
+"Core link OK ({ms} ms)" = ""
+
+# 中文：修改日期
+# 用在：action (sort_mtime)，text (PickerColumnModified)
+"Date Modified" = ""
+
+# 中文：解码失败：{e}
+# 用在：decode.rs (msg!)
+"Decoding failed: {e}" = ""
+
+# 中文：默认
+# 用在：settings.rs (tr!)
+"Default" = ""
+
+# 中文：默认应用
+# 用在：settings button (formats.buttons_windows)
+"Default Apps" = ""
+
+# 中文：默认看图软件
+# 用在：settings label (formats.default_heading)
+"Default image viewer" = ""
+
+# 中文：默认：下一张
+# 用在：settings detail (mouse.y_button)
+"Default: next image" = ""
+
+# 中文：默认：下一张。按住 Ctrl 滚动照常缩放
+# 用在：settings detail (mouse.wheel_down)
+"Default: next image. Ctrl+wheel still zooms" = ""
+
+# 中文：默认：下一张。按住 ⌘ 滚动照常缩放
+# 用在：settings detail (mouse.wheel_down)
+"Default: next image. ⌘+wheel still zooms" = ""
+
+# 中文：默认：打开右键菜单
+# 用在：settings detail (mouse.right)
+"Default: opens the context menu" = ""
+
+# 中文：默认：打开右键菜单。按住 ⌃ 点按总是打开右键菜单
+# 用在：settings detail (mouse.right)
+"Default: opens the context menu. Control-click always opens it" = ""
+
+# 中文：默认：上一张
+# 用在：settings detail (mouse.x_button)
+"Default: previous image" = ""
+
+# 中文：默认：上一张。按住 Ctrl 滚动照常缩放
+# 用在：settings detail (mouse.wheel_up)
+"Default: previous image. Ctrl+wheel still zooms" = ""
+
+# 中文：默认：上一张。按住 ⌘ 滚动照常缩放
+# 用在：settings detail (mouse.wheel_up)
+"Default: previous image. ⌘+wheel still zooms" = ""
+
+# 中文：删除
+# 用在：action (delete_file)，i18n.rs (tr!)，text (ButtonDelete)
+"Delete" = ""
+
+# 中文：降序
+# 用在：action (sort_desc)
+"Descending" = ""
+
+# 中文：桌面快捷方式
+# 用在：packaging.rs (tr!)
+"Desktop shortcut" = ""
+
+# 中文：放弃修改
+# 用在：text (SettingsDiscard)
+"Discard Changes" = ""
+
+# 中文：放弃对设置的修改吗？
+# 用在：text (SettingsDiscardMessage)
+"Discard your changes to the settings?" = ""
+
+# 中文：显示
+# 用在：settings label (image.display_heading)
+"Display" = ""
+
+# 中文：双击最大化/还原
+# 用在：settings label (mouse.double_click_maximize)
+"Double-click to maximize or restore" = ""
+
+# 中文：文件管理器里双击图片就用 Anyview 打开；“恢复原来的”换回设之前各种图片的默认程序
+# 用在：settings detail (formats.buttons_linux)
+"Double-clicking an image in the file manager then opens it; “Restore Previous” switches each type back" = ""
+
+# 中文：拖动照常移动窗口或平移图片
+# 用在：settings detail (mouse.left)
+"Dragging still moves the window or pans" = ""
+
+# 中文：拖动照常平移图片
+# 用在：settings detail (mouse.middle)
+"Dragging still pans" = ""
+
+# 中文：将图片拖到窗口中，或按 {key} 打开图片
+# 用在：text (EmptyStateHint)
+"Drop an image here, or press {key} to open one" = ""
+
+# 中文：EXIF 信息
+# 用在：action (toggle_info)
+"EXIF Info" = ""
+
+# 中文：EXIF 方向
+# 用在：settings detail (image.exif_rotate)
+"EXIF orientation" = ""
+
+# 中文：编辑
+# 用在：menu title
+"Edit" = ""
+
+# 中文：进入全屏幕
+# 用在：macOS menu item (fullscreen)
+"Enter Full Screen" = ""
+
+# 中文：退出
+# 用在：action (quit)
+"Exit" = ""
+
+# 中文：拍摄参数: {value}
+# 用在：text (InfoExposure)
+"Exposure: {value}" = ""
+
+# 中文：淡出
+# 用在：settings option (image.page_effect)
+"Fade" = ""
+
+# 中文：操作失败：{message}
+# 用在：text (NoticeFileFailed)
+"Failed: {message}" = ""
+
+# 中文：文件
+# 用在：menu title
+"File" = ""
+
+# 中文：格式关联
+# 用在：settings page (formats)
+"File Types" = ""
+
+# 中文：文件管理器的缩略图
+# 用在：settings label (formats.thumbnailer_heading)
+"File manager thumbnails" = ""
+
+# 中文：文件名: {value}
+# 用在：text (InfoName)
+"File: {value}" = ""
+
+# 中文：首张
+# 用在：menu item (first_image)
+"First" = ""
+
+# 中文：首张图片
+# 用在：action (first_image)
+"First Image" = ""
+
+# 中文：首张图片
+# 用在：mappable action (first_image)
+"First image" = ""
+
+# 中文：适合宽度
+# 用在：action (fit_width)
+"Fit to Width" = ""
+
+# 中文：适合窗口
+# 用在：action (fit_window)
+"Fit to Window" = ""
+
+# 中文：水平翻转
+# 用在：action (flip_horizontal)
+"Flip Horizontal" = ""
+
+# 中文：垂直翻转
+# 用在：action (flip_vertical)
+"Flip Vertical" = ""
+
+# 中文：文件夹 1
+# 用在：settings label (misc.folder1)
+"Folder 1" = ""
+
+# 中文：文件夹 2
+# 用在：settings label (misc.folder2)
+"Folder 2" = ""
+
+# 中文：关掉的格式，缩略图交还给系统或别的程序。资源管理器会存着做过的缩略图，已经显示过的文件不会马上变。
+# 用在：settings label (context_menu.thumbs_note)
+"For a format you turn off, thumbnails go back to Windows or another program. Explorer keeps the thumbnails it has made, so files already shown won’t change right away." = ""
+
+# 中文：忘掉所有记住的位置
+# 用在：settings label (bookmarks.clear_archive)
+"Forget all remembered positions" = ""
+
+# 中文：要忘掉所有压缩包里看到的位置吗？
+# 用在：text (PromptClearPositions)
+"Forget the positions in all archives?" = ""
+
+# 中文：向后 10 张
+# 用在：menu item (forward_10)
+"Forward 10" = ""
+
+# 中文：向下10张图片
+# 用在：action (forward_10)
+"Forward 10 Images" = ""
+
+# 中文：向后10张图片
+# 用在：mappable action (forward_10)
+"Forward 10 images" = ""
+
+# 中文：动图的帧数和播放按钮
+# 用在：settings label (browse.hide_animation_info)
+"Frame number and play button of animations" = ""
+
+# 中文：第 {n} 帧解不出来
+# 用在：anim.rs (msg!)
+"Frame {n} could not be decoded" = ""
+
+# 中文：全屏
+# 用在：action (fullscreen)
+"Full Screen" = ""
+
+# 中文：全屏
+# 用在：mappable action (fullscreen)
+"Full screen" = ""
+
+# 中文：GIF、APNG、WebP、JPEG XL、AVIF
+# 用在：help.rs (tr!)
+"GIF, APNG, WebP, JPEG XL, AVIF" = ""
+
+# 中文：Gamma 补偿 ／ Gamma补偿
+# 用在：action (gamma)，menu item (gamma)
+"Gamma Correction" = ""
+
+# 中文：一般 ／ 常用
+# 用在：api.rs (tr!)，settings page (general)
+"General" = ""
+
+# 中文：生成工具：{tool}
+# 用在：generation.rs (tr!)
+"Generated with: {tool}" = ""
+
+# 中文：生成信息
+# 用在：action (show_generation_info)，generation.rs (tr!)
+"Generation Info" = ""
+
+# 中文：玻璃水珠
+# 用在：settings option (browse.bar_hover_effect)
+"Glass droplet" = ""
+
+# 中文：前往
+# 用在：menu title
+"Go" = ""
+
+# 中文：转到首张
+# 用在：i18n.rs (tr!)
+"Go to First" = ""
+
+# 中文：转到末张
+# 用在：i18n.rs (tr!)
+"Go to Last" = ""
+
+# 中文：转到下一个或上一个文件夹
+# 用在：settings option (general.at_archive_boundary)，settings option (general.at_boundary)
+"Go to the next or previous folder" = ""
+
+# 中文：HEIC、HEIF
+# 用在：help.rs (tr!)
+"HEIC, HEIF" = ""
+
+# 中文：帮助
+# 用在：menu title
+"Help" = ""
+
+# 中文：隐藏 Anyview
+# 用在：action (hide_app)
+"Hide Anyview" = ""
+
+# 中文：关闭图片信息
+# 用在：text (InfoClose)
+"Hide Image Info" = ""
+
+# 中文：隐藏其他
+# 用在：action (hide_others)
+"Hide Others" = ""
+
+# 中文：隐藏缩略图导航
+# 用在：text (PickerHideThumbnails)
+"Hide thumbnail navigation" = ""
+
+# 中文：悬停效果
+# 用在：settings label (browse.bar_hover_effect)
+"Hover effect" = ""
+
+# 中文：指针移到控制栏的按钮上时的样子（macOS 26 起；更早的系统是淡色亮底）
+# 用在：settings detail (browse.bar_hover_effect)
+"How a control bar button reacts to the pointer (macOS 26 and later; earlier versions use a soft highlight)" = ""
+
+# 中文：ICO、CUR
+# 用在：help.rs (tr!)
+"ICO, CUR" = ""
+
+# 中文：图像 ／ 图像处理 ／ 图片
+# 用在：menu title，packaging.rs (tr!)，settings page (image)
+"Image" = ""
+
+# 中文：图片效果
+# 用在：menu title
+"Image Effects" = ""
+
+# 中文：图片文件
+# 用在：packaging.rs (tr!)
+"Image File" = ""
+
+# 中文：看图软件
+# 用在：i18n.rs (tr!)
+"Image Viewer" = ""
+
+# 中文：图像编辑器
+# 用在：settings label (misc.editor_heading)
+"Image editor" = ""
+
+# 中文：图片文件夹
+# 用在：settings label (misc.folders_heading)
+"Image folders" = ""
+
+# 中文：图片太大：{size}
+# 用在：jxr.rs (msg!)
+"Image too large: {size}" = ""
+
+# 中文：图片太大：{width}x{height}
+# 用在：clip.rs (msg!)，decode.rs (msg!)，jpeg.rs (msg!)，jxl.rs (msg!)
+"Image too large: {width}x{height}" = ""
+
+# 中文：图片太大：{w}x{h}
+# 用在：heif.rs (msg!)
+"Image too large: {w}x{h}" = ""
+
+# 中文：看图软件
+# 用在：winshell.rs (tr!)
+"Image viewer" = ""
+
+# 中文：图片信息: {value}
+# 用在：text (InfoImage)
+"Image: {value}" = ""
+
+# 中文：图片
+# 用在：text (ImageFilterName)
+"Images" = ""
+
+# 中文：“默认应用”里点“照片查看器”，选 Anyview。PSD、WebP、RAW 等不归“照片查看器”管的格式，点“按扩展名设置”逐个选（Windows 10 在打开的页面最下面点“按应用设置默认值” › Anyview › 管理）
+# 用在：settings detail (formats.buttons_windows)
+"In Default apps, click “Photo viewer” and choose Anyview. For formats outside “Photo viewer” (PSD, WebP, RAW…), click “By Extension” and pick them one by one (on Windows 10: bottom of the page › “Set defaults by app” › Anyview › Manage)" = ""
+
+# 中文：文件夹里
+# 用在：settings label (general.at_boundary)
+"In a folder" = ""
+
+# 中文：压缩包里
+# 用在：settings label (general.at_archive_boundary)
+"In an archive" = ""
+
+# 中文：插值算法
+# 用在：menu title
+"Interpolation" = ""
+
+# 中文：DDS 的尺寸不对：{width}x{height}
+# 用在：dds.rs (msg!)
+"Invalid DDS size: {width}x{height}" = ""
+
+# 中文：PCX 每行的字节数不对：{bytes_per_line}
+# 用在：pcx.rs (msg!)
+"Invalid PCX bytes per line: {bytes_per_line}" = ""
+
+# 中文：PCX 的图像范围不对：{xmin},{ymin} – {xmax},{ymax}
+# 用在：pcx.rs (msg!)
+"Invalid PCX image bounds: {xmin},{ymin} – {xmax},{ymax}" = ""
+
+# 中文：PSD 的位深不对：{mode} 模式 {depth} 位
+# 用在：psd.rs (msg!)
+"Invalid PSD bit depth: {depth} bits in {mode} mode" = ""
+
+# 中文：PSD 的通道数不对：{channels}
+# 用在：psd.rs (msg!)
+"Invalid PSD channel count: {channels}" = ""
+
+# 中文：PSD 的尺寸不对：{width}x{height}
+# 用在：psd.rs (msg!)
+"Invalid PSD size: {width}x{height}" = ""
+
+# 中文：RAW 的尺寸不对：{width}x{height}
+# 用在：decode.rs (msg!)
+"Invalid RAW size: {width}x{height}" = ""
+
+# 中文：SVG 尺寸不对
+# 用在：svg.rs (msg!)
+"Invalid SVG size" = ""
+
+# 中文：图像尺寸不对：{size}
+# 用在：jxr.rs (msg!)
+"Invalid image size: {size}" = ""
+
+# 中文：图像尺寸不对：{width}x{height}
+# 用在：decode.rs (msg!)，radiance.rs (msg!)
+"Invalid image size: {width}x{height}" = ""
+
+# 中文：反相
+# 用在：action (invert)
+"Invert" = ""
+
+# 中文：JFIF 图像
+# 用在：packaging.rs (tr!)
+"JFIF Image" = ""
+
+# 中文：JPEG 2000 码流
+# 用在：packaging.rs (tr!)
+"JPEG 2000 Codestream" = ""
+
+# 中文：JPEG 2000：解出的数据不全（{got} 字节，应为 {want}）
+# 用在：jp2.rs (msg!)
+"JPEG 2000: decoded data is incomplete ({got} bytes, expected {want})" = ""
+
+# 中文：JPEG 2000：图片太大（{width}x{height}，{components} 个分量）
+# 用在：jp2.rs (msg!)
+"JPEG 2000: image too large ({width}x{height}, {components} components)" = ""
+
+# 中文：JPEG 2000：SIZ 段的数值不对
+# 用在：jp2.rs (msg!)
+"JPEG 2000: invalid values in the SIZ segment" = ""
+
+# 中文：JPEG 2000：文件里没有码流
+# 用在：jp2.rs (msg!)
+"JPEG 2000: no codestream in the file" = ""
+
+# 中文：JPEG 2000：SIZ 段不全
+# 用在：jp2.rs (msg!)
+"JPEG 2000: the SIZ segment is incomplete" = ""
+
+# 中文：JPEG 2000：码流不是以 SIZ 段开头
+# 用在：jp2.rs (msg!)
+"JPEG 2000: the codestream doesn't start with a SIZ segment" = ""
+
+# 中文：JPEG 2000：分块太多（{tiles}）
+# 用在：jp2.rs (msg!)
+"JPEG 2000: too many tiles ({tiles})" = ""
+
+# 中文：JPEG 2000：{e}
+# 用在：jp2.rs (msg!)
+"JPEG 2000: {e}" = ""
+
+# 中文：JPEG XR 图像
+# 用在：packaging.rs (tr!)
+"JPEG XR Image" = ""
+
+# 中文：这台机器上编译时没能编进 jxrlib，JPEG XR 不可用
+# 用在：jxr.rs (msg!)
+"JPEG XR isn't available: jxrlib could not be built on this machine" = ""
+
+# 中文：JPEG XR：文件结构不对（{what}）
+# 用在：jxr.rs (msg!)
+"JPEG XR: invalid file structure ({what})" = ""
+
+# 中文：JPEG XR：解出的数据不对（{channels} 个通道）
+# 用在：jxr.rs (msg!)
+"JPEG XR: unexpected decoded data ({channels} channels)" = ""
+
+# 中文：JPEG XR：{e}
+# 用在：jxr.rs (msg!)
+"JPEG XR: {e}" = ""
+
+# 中文：继续修改
+# 用在：text (SettingsKeepEditing)
+"Keep Editing" = ""
+
+# 中文：看图时不让屏幕变暗或睡眠
+# 用在：settings label (misc.no_screensaver)
+"Keep the screen on while viewing" = ""
+
+# 中文：键盘
+# 用在：settings page (keyboard)
+"Keyboard" = ""
+
+# 中文：键盘快捷键
+# 用在：action (help_shortcuts)，help.rs (tr!)
+"Keyboard Shortcuts" = ""
+
+# 中文：柯达 KDC RAW 图像
+# 用在：packaging.rs (tr!)
+"Kodak KDC Raw Image" = ""
+
+# 中文：Lanczos 插值（慢，高品质）
+# 用在：action (interp_lanczos)
+"Lanczos (Slow, High Quality)" = ""
+
+# 中文：Lanczos（慢，画质好）
+# 用在：settings option (image.interpolation)
+"Lanczos (slow, high quality)" = ""
+
+# 中文：界面语言 ／ 语言
+# 用在：settings label (language.language)，settings page (language)
+"Language" = ""
+
+# 中文：打开大照片时更快看到画面
+# 用在：settings detail (image.fast_preview)
+"Large photos appear sooner" = ""
+
+# 中文：末张
+# 用在：menu item (last_image)
+"Last" = ""
+
+# 中文：末尾图片
+# 用在：action (last_image)
+"Last Image" = ""
+
+# 中文：末尾图片
+# 用在：mappable action (last_image)
+"Last image" = ""
+
+# 中文：左键
+# 用在：settings label (mouse.left_heading)
+"Left button" = ""
+
+# 中文：镜头: {value}
+# 用在：text (InfoLens)
+"Lens: {value}" = ""
+
+# 中文：让文件管理器用 Anyview 做缩略图
+# 用在：settings label (formats.buttons_flatpak_thumbnails)
+"Let the file manager use Anyview" = ""
+
+# 中文：液面鼓起
+# 用在：settings option (browse.bar_hover_effect)
+"Liquid bulge" = ""
+
+# 中文：锁定
+# 用在：text (BarLock)
+"Lock" = ""
+
+# 中文：锁定控制栏
+# 用在：action (toggle_bar_lock)
+"Lock Control Bar" = ""
+
+# 中文：锁定 ／ 锁定缩放
+# 用在：action (zoom_lock)，menu item (zoom_lock)
+"Lock Zoom" = ""
+
+# 中文：把 Anyview 设为它支持的所有图片类型的默认程序
+# 用在：settings label (formats.buttons_mac)
+"Make Anyview the default app for every image type it supports" = ""
+
+# 中文：把 Anyview 设为它支持的图片类型的默认程序
+# 用在：settings label (formats.buttons_linux)
+"Make Anyview the default app for the image types it supports" = ""
+
+# 中文：设为默认看图软件（打开系统设置）
+# 用在：packaging.rs (tr!)
+"Make Anyview the default viewer (opens Settings)" = ""
+
+# 中文：设为默认
+# 用在：settings button (formats.buttons_linux)，settings button (formats.buttons_mac)
+"Make Default" = ""
+
+# 中文：最大化
+# 用在：mappable action (maximize)
+"Maximize" = ""
+
+# 中文：最大化/还原
+# 用在：action (maximize)
+"Maximize/Restore" = ""
+
+# 中文：点“确定”后菜单和窗口马上换成新的语言
+# 用在：settings detail (language.language)
+"Menus and windows switch as soon as you click OK" = ""
+
+# 中文：中键
+# 用在：settings label (mouse.middle)
+"Middle button" = ""
+
+# 中文：最小化
+# 用在：action (minimize)，mappable action (minimize)
+"Minimize" = ""
+
+# 中文：修改日期: {value}
+# 用在：text (InfoModified)
+"Modified: {value}" = ""
+
+# 中文：鼠标
+# 用在：settings page (mouse)
+"Mouse" = ""
+
+# 中文：移动到 图片文件夹 ／ 移动到图片文件夹
+# 用在：action (move_to_folder1)，menu item (move_to_folder1)
+"Move to Image Folder" = ""
+
+# 中文：删除 ／ 移到废纸篓
+# 用在：i18n.rs (tr!)，macOS action (delete_file)
+"Move to Trash" = ""
+
+# 中文：移动到 图片文件夹
+# 用在：mappable action (move_to_folder1)
+"Move to image folder" = ""
+
+# 中文：要把“{name}”移到回收站吗？
+# 用在：i18n.rs (tr!)
+"Move “{name}” to the Recycle Bin?" = ""
+
+# 中文：要把“{name}”移到回收站吗？ ／ 要把“{name}”移到废纸篓吗？
+# 用在：i18n.rs (tr!)
+"Move “{name}” to the Trash?" = ""
+
+# 中文：已移动到“{folder}”：{name}
+# 用在：text (NoticeMoved)
+"Moved to “{folder}”: {name}" = ""
+
+# 中文：列表 ／ 文件名
+# 用在：action (sort_name)，text (PickerColumnName)
+"Name" = ""
+
+# 中文：浏览导航
+# 用在：menu title
+"Navigation" = ""
+
+# 中文：反向提示词
+# 用在：generation.rs (tr!)
+"Negative prompt" = ""
+
+# 中文：新格式
+# 用在：help.rs (tr!)
+"Newer formats" = ""
+
+# 中文：下一张
+# 用在：menu item (next_image)
+"Next" = ""
+
+# 中文：转到下一个压缩包
+# 用在：i18n.rs (tr!)
+"Next Archive" = ""
+
+# 中文：转到下一个文件夹
+# 用在：i18n.rs (tr!)
+"Next Folder" = ""
+
+# 中文：下一个文件夹或压缩包
+# 用在：menu item (next_container)
+"Next Folder or Archive" = ""
+
+# 中文：下一个 文件夹/压缩包
+# 用在：action (next_container)
+"Next Folder/Archive" = ""
+
+# 中文：下一帧
+# 用在：action (anim_next_frame)
+"Next Frame" = ""
+
+# 中文：下一张图片
+# 用在：action (next_image)
+"Next Image" = ""
+
+# 中文：下一页（双页阅览）
+# 用在：action (next_page_double)
+"Next Page (Two-Page View)" = ""
+
+# 中文：下一个压缩包/文件夹
+# 用在：mappable action (next_container)
+"Next archive/folder" = ""
+
+# 中文：下一张
+# 用在：mappable action (next_image)
+"Next image" = ""
+
+# 中文：下一页（双页阅览）
+# 用在：mappable action (next_page_double)
+"Next page (two-page view)" = ""
+
+# 中文：不旋转
+# 用在：action (rotate_none)
+"No Rotation" = ""
+
+# 中文：无操作
+# 用在：settings.rs (tr!)
+"No action" = ""
+
+# 中文：没有可以退回的随机跳转
+# 用在：text (NoticeNoRandomBack)
+"No earlier random jump" = ""
+
+# 中文：还没有设置图像编辑器：在 设置 › 杂项 里选择
+# 用在：text (NoticeEditorMissing)
+"No image editor set yet (Settings › Other)" = ""
+
+# 中文：还没有设置图片文件夹：在 设置 › 杂项 里设置
+# 用在：text (NoticeFolderNotSet)
+"No image folder set yet (Settings › Other)" = ""
+
+# 中文：没有图像尺寸
+# 用在：jpeg.rs (msg!)
+"No image size" = ""
+
+# 中文：压缩包里没有可以打开的图片
+# 用在：text (NoticeEmptyArchive)
+"No images in this archive" = ""
+
+# 中文：文件夹中没有可以打开的图片
+# 用在：text (NoticeEmptyFolder)
+"No images in this folder" = ""
+
+# 中文：窗口里有图片时，屏幕保护程序和显示器睡眠都不启动
+# 用在：settings detail (misc.no_screensaver)
+"No screen saver or display sleep while a window shows an image" = ""
+
+# 中文：无
+# 用在：action (edge_none)，settings option (image.page_effect)
+"None" = ""
+
+# 中文：不是 DDS 文件
+# 用在：dds.rs (msg!)
+"Not a DDS file" = ""
+
+# 中文：不是 PCX 文件
+# 用在：pcx.rs (msg!)
+"Not a PCX file" = ""
+
+# 中文：不是 PSD 文件
+# 用在：psd.rs (msg!)
+"Not a PSD file" = ""
+
+# 中文：PSD 的通道不够：{mode} 模式要 {color} 个，文件里只有 {channels} 个
+# 用在：psd.rs (msg!)
+"Not enough PSD channels: {mode} mode needs {color}, the file has {channels}" = ""
+
+# 中文：内存不够：{size}
+# 用在：jxr.rs (msg!)
+"Not enough memory: {size}" = ""
+
+# 中文：没有登记过，不用取消
+# 用在：text (SettingsThumbnailerNothing)
+"Nothing to unregister" = ""
+
+# 中文：确定
+# 用在：text (PickerOk)，text (SettingsOk)
+"OK" = ""
+
+# 中文：把 Anyview 放进“应用程序”并打开过一次以后，系统自己不认识的格式（如 QOI、CLIP、JPEG XR、PCX）在访达里也会显示缩略图，选中后按空格可以预览。
+# 用在：settings label (formats.note_finder)
+"Once Anyview is in the Applications folder and has been opened once, formats macOS doesn’t know (such as QOI, CLIP, JPEG XR, PCX) get thumbnails in Finder, and pressing Space previews them." = ""
+
+# 中文：只有 Flatpak 版要登记：安装包自己带了缩略图生成器
+# 用在：text (SettingsThumbnailerNotFlatpak)
+"Only the Flatpak version needs this: the installed package already brings its own thumbnailer" = ""
+
+# 中文：打开
+# 用在：settings button (misc.folder1)，settings button (misc.folder2)
+"Open" = ""
+
+# 中文：仍然打开
+# 用在：i18n.rs (tr!)
+"Open Anyway" = ""
+
+# 中文：打开访达
+# 用在：settings button (formats.buttons_mac)
+"Open Finder" = ""
+
+# 中文：打开文件夹
+# 用在：action (open_folder)，settings button (browse.background_image_path)
+"Open Folder" = ""
+
+# 中文：打开文件夹…
+# 用在：menu item (open_folder)
+"Open Folder…" = ""
+
+# 中文：打开图片
+# 用在：action (open_file)，text (OpenDialogTitle)
+"Open Image" = ""
+
+# 中文：打开图片…
+# 用在：menu item (open_file)
+"Open Image…" = ""
+
+# 中文：打开 RAW 照片
+# 用在：settings label (misc.skip_raw)
+"Open RAW photos" = ""
+
+# 中文：打开最近使用
+# 用在：menu title
+"Open Recent" = ""
+
+# 中文：开源许可
+# 用在：action (help_licenses)，help.rs (tr!)
+"Open Source Licenses" = ""
+
+# 中文：打开文件
+# 用在：mappable action (open_file)
+"Open file" = ""
+
+# 中文：打开文件夹
+# 用在：mappable action (open_folder)
+"Open folder" = ""
+
+# 中文：用图像编辑器打开
+# 用在：action (open_in_editor)
+"Open in Image Editor" = ""
+
+# 中文：“用图像编辑器打开”（{key:open_in_editor}）用这个程序打开图片。
+# 用在：settings label (misc.editor_note)
+"Open in Image Editor ({key:open_in_editor}) opens the image with this app." = ""
+
+# 中文：也可以在访达里逐个类型设置：选中一张图片 › 文件 › 显示简介 › 打开方式 › 选 Anyview › 全部更改…
+# 用在：settings detail (formats.buttons_mac)
+"Or one type at a time in Finder: select an image › File › Get Info › Open with › Anyview › Change All…" = ""
+
+# 中文：原始大小
+# 用在：menu item (zoom_original)
+"Original Size" = ""
+
+# 中文：原始大小 (100%)
+# 用在：action (zoom_original)
+"Original Size (100%)" = ""
+
+# 中文：其他 ／ 杂项
+# 用在：api.rs (tr!)，settings label (general.other_heading)，settings label (misc.other_heading)，settings page (misc)
+"Other" = ""
+
+# 中文：其他按键
+# 用在：settings label (mouse.other_heading)
+"Other buttons" = ""
+
+# 中文：其他格式
+# 用在：settings label (context_menu.thumb_other)
+"Other formats" = ""
+
+# 中文：关掉时每次都完整解码，慢一些
+# 用在：settings detail (misc.raw_thumbnail)
+"Otherwise every RAW file is fully decoded, which is slower" = ""
+
+# 中文：关掉时显示在画面中央
+# 用在：settings detail (general.corner_notices)
+"Otherwise they appear in the middle" = ""
+
+# 中文：PAM 图像
+# 用在：packaging.rs (tr!)
+"PAM image" = ""
+
+# 中文：PCX 图像
+# 用在：packaging.rs (tr!)
+"PCX Image" = ""
+
+# 中文：PNG、APNG
+# 用在：help.rs (tr!)
+"PNG, APNG" = ""
+
+# 中文：PSD、PSB（合成图）
+# 用在：help.rs (tr!)
+"PSD, PSB (composite)" = ""
+
+# 中文：左右两侧的翻页箭头
+# 用在：settings label (browse.hide_side_arrows)
+"Page arrows on the sides" = ""
+
+# 中文：翻页效果
+# 用在：settings label (image.page_effect)
+"Page transition" = ""
+
+# 中文：翻页
+# 用在：settings option (image.page_effect)
+"Page turn" = ""
+
+# 中文：下移
+# 用在：action (pan_down)
+"Pan Down" = ""
+
+# 中文：左移
+# 用在：action (pan_left)
+"Pan Left" = ""
+
+# 中文：右移
+# 用在：action (pan_right)
+"Pan Right" = ""
+
+# 中文：上移
+# 用在：action (pan_up)
+"Pan Up" = ""
+
+# 中文：下移
+# 用在：mappable action (pan_down)
+"Pan down" = ""
+
+# 中文：左移
+# 用在：mappable action (pan_left)
+"Pan left" = ""
+
+# 中文：右移
+# 用在：mappable action (pan_right)
+"Pan right" = ""
+
+# 中文：上移
+# 用在：mappable action (pan_up)
+"Pan up" = ""
+
+# 中文：参数
+# 用在：generation.rs (tr!)
+"Parameters" = ""
+
+# 中文：暂停动画
+# 用在：action (anim_toggle)
+"Pause Animation" = ""
+
+# 中文：像素边缘
+# 用在：menu title
+"Pixel Edges" = ""
+
+# 中文：像素边缘：{title}
+# 用在：api.rs (tr!)
+"Pixel edges: {title}" = ""
+
+# 中文：翻页时播放音效
+# 用在：settings label (misc.page_sound)
+"Play a sound when turning pages" = ""
+
+# 中文：自动播放
+# 用在：help.rs (tr!)
+"Played automatically" = ""
+
+# 中文：Portable Anymap 图像
+# 用在：packaging.rs (tr!)
+"Portable Anymap Image" = ""
+
+# 中文：预读
+# 用在：settings label (image.prefetch_count)
+"Preload" = ""
+
+# 中文：预先读好接下来的图片
+# 用在：settings label (image.prefetch)
+"Preload upcoming images" = ""
+
+# 中文：按 Esc 退出
+# 用在：settings label (general.esc_quits)
+"Press Esc to quit" = ""
+
+# 中文：按下按键…
+# 用在：text (SettingsPressKey)
+"Press a key…" = ""
+
+# 中文：上一张
+# 用在：menu item (prev_image)
+"Previous" = ""
+
+# 中文：转到上一个压缩包
+# 用在：i18n.rs (tr!)
+"Previous Archive" = ""
+
+# 中文：转到上一个文件夹
+# 用在：i18n.rs (tr!)
+"Previous Folder" = ""
+
+# 中文：上一个文件夹或压缩包
+# 用在：menu item (prev_container)
+"Previous Folder or Archive" = ""
+
+# 中文：上一个 文件夹/压缩包
+# 用在：action (prev_container)
+"Previous Folder/Archive" = ""
+
+# 中文：上一帧
+# 用在：action (anim_prev_frame)
+"Previous Frame" = ""
+
+# 中文：上一张图片
+# 用在：action (prev_image)
+"Previous Image" = ""
+
+# 中文：上一页（双页阅览）
+# 用在：action (prev_page_double)
+"Previous Page (Two-Page View)" = ""
+
+# 中文：上一个压缩包/文件夹
+# 用在：mappable action (prev_container)
+"Previous archive/folder" = ""
+
+# 中文：上一张
+# 用在：mappable action (prev_image)
+"Previous image" = ""
+
+# 中文：上一页（双页阅览）
+# 用在：mappable action (prev_page_double)
+"Previous page (two-page view)" = ""
+
+# 中文：打印
+# 用在：action (print)
+"Print" = ""
+
+# 中文：打印…
+# 用在：menu item (print)
+"Print…" = ""
+
+# 中文：提示词
+# 用在：generation.rs (tr!)
+"Prompt" = ""
+
+# 中文：QOI 图像
+# 用在：packaging.rs (tr!)
+"QOI Image" = ""
+
+# 中文：QOI、TGA、SVG、RAW 等
+# 用在：settings detail (context_menu.thumb_other)
+"QOI, TGA, SVG, RAW and more" = ""
+
+# 中文：画质
+# 用在：settings label (image.quality_heading)
+"Quality" = ""
+
+# 中文：退出
+# 用在：mappable action (quit)
+"Quit" = ""
+
+# 中文：退出 Anyview
+# 用在：macOS action (quit)
+"Quit Anyview" = ""
+
+# 中文：RAW（显示相机内嵌的预览图）
+# 用在：help.rs (tr!)
+"RAW (embedded camera preview)" = ""
+
+# 中文：RAW 照片
+# 用在：settings label (misc.raw_heading)
+"RAW photos" = ""
+
+# 中文：随机向后
+# 用在：menu item (random_forward)
+"Random" = ""
+
+# 中文：向后随机转到某张图片
+# 用在：action (random_forward)
+"Random Image" = ""
+
+# 中文：向后随机转到某张图片
+# 用在：mappable action (random_forward)
+"Random image" = ""
+
+# 中文：登记
+# 用在：settings button (formats.buttons_flatpak_thumbnails)
+"Register" = ""
+
+# 中文：已登记：KDE 的 Dolphin 等文件管理器会用 Anyview 给 {count} 种图片做缩略图（之后打开的文件夹里生效）
+# 用在：text (SettingsThumbnailerRegistered)
+"Registered: file managers such as KDE’s Dolphin will use Anyview for thumbnails of {count} image types (in folders you open from now on)" = ""
+
+# 中文：使用 MIT 许可证
+# 用在：licenses.rs (tr!)
+"Released under the MIT License" = ""
+
+# 中文：记住最近打开的文件和文件夹
+# 用在：settings label (general.no_recent)
+"Remember recently opened files and folders" = ""
+
+# 中文：记住缩放方式
+# 用在：settings label (browse.save_zoom_state)
+"Remember the zoom settings" = ""
+
+# 中文：记住在压缩包里看到哪一张
+# 用在：settings label (bookmarks.remember_archive)
+"Remember where you were in each archive" = ""
+
+# 中文：删除这个快捷键
+# 用在：text (SettingsRemoveShortcut)
+"Remove this shortcut" = ""
+
+# 中文：再打开同一个压缩包时，从上次看到的那张开始
+# 用在：settings detail (bookmarks.remember_archive)
+"Reopening an archive continues where you left off" = ""
+
+# 中文：将替代：{title}
+# 用在：settings.rs (tr!)
+"Replaces: {title}" = ""
+
+# 中文：窗口大小跟着图片
+# 用在：settings label (misc.fit_window)
+"Resize the window to fit the image" = ""
+
+# 中文：恢复本页默认
+# 用在：text (SettingsReset)
+"Restore Defaults" = ""
+
+# 中文：恢复原来的
+# 用在：settings button (formats.buttons_linux)
+"Restore Previous" = ""
+
+# 中文：已换回原来的默认程序（{count} 种图片）
+# 用在：text (SettingsDefaultViewerRestored)
+"Restored the previous default apps ({count} image types)" = ""
+
+# 中文：下次启动时恢复显示方式、拉伸小图和缩放锁定
+# 用在：settings detail (browse.save_zoom_state)
+"Restores the view mode, small-image stretching and zoom lock next time" = ""
+
+# 中文：从访达打开图片时用当前窗口
+# 用在：settings label (general.single_instance)
+"Reuse the window for images opened from Finder" = ""
+
+# 中文：从文件管理器打开图片时用当前窗口
+# 用在：settings label (general.single_instance)
+"Reuse the window for images opened from the file manager" = ""
+
+# 中文：右键
+# 用在：settings label (mouse.right)
+"Right button" = ""
+
+# 中文：资源管理器的右键菜单
+# 用在：settings label (context_menu.menu_heading)
+"Right-click menu in File Explorer" = ""
+
+# 中文：旋转 180°
+# 用在：action (rotate_180)
+"Rotate 180°" = ""
+
+# 中文：顺时针旋转 90°
+# 用在：action (rotate_cw)
+"Rotate 90° Clockwise" = ""
+
+# 中文：逆时针旋转 90°
+# 用在：action (rotate_ccw)
+"Rotate 90° Counterclockwise" = ""
+
+# 中文：图像旋转
+# 用在：menu title
+"Rotation" = ""
+
+# 中文：第 {first} 行和第 {row} 行用了同一个按键 {key}。
+# 用在：settings.rs (tr!)
+"Rows {first} and {row} use the same key {key}." = ""
+
+# 中文：运行 Anyview
+# 用在：packaging.rs (tr!)
+"Run Anyview" = ""
+
+# 中文：跟随系统
+# 用在：settings option (language.language)
+"Same as the system" = ""
+
+# 中文：与第 {first} 行相同
+# 用在：settings.rs (tr!)
+"Same key as row {first}" = ""
+
+# 中文：缩放算法
+# 用在：settings label (image.interpolation)
+"Scaling filter" = ""
+
+# 中文：扫描中
+# 用在：text (BarScanning)
+"Scanning…" = ""
+
+# 中文：选择图片
+# 用在：action (select_image)，text (PickerTitle)
+"Select Image" = ""
+
+# 中文：选择图片…
+# 用在：menu item (select_image)
+"Select Image…" = ""
+
+# 中文：选择图片
+# 用在：mappable action (select_image)
+"Select image" = ""
+
+# 中文：服务
+# 用在：menu title
+"Services" = ""
+
+# 中文：设为桌面图片
+# 用在：macOS action (set_wallpaper)
+"Set Desktop Picture" = ""
+
+# 中文：设置按键
+# 用在：text (SettingsKeyUnset)
+"Set Key" = ""
+
+# 中文：设为桌面壁纸…
+# 用在：action (set_wallpaper)
+"Set as Desktop Background…" = ""
+
+# 中文：已设为桌面图片
+# 用在：text (NoticeWallpaperSet)
+"Set as the desktop picture" = ""
+
+# 中文：设置
+# 用在：action (settings)，text (SettingsTitle)
+"Settings" = ""
+
+# 中文：设置…
+# 用在：macOS action (settings)
+"Settings…" = ""
+
+# 中文：多个窗口共用设置
+# 用在：settings label (bookmarks.share)
+"Share settings between windows" = ""
+
+# 中文：全部显示
+# 用在：action (show_all)
+"Show All" = ""
+
+# 中文：标题栏隐藏时显示文件名 ／ 顶端菜单隐藏时显示文件名
+# 用在：action (toggle_title_filename)，macOS action (toggle_title_filename)
+"Show File Name When Title Bar Is Hidden" = ""
+
+# 中文：显示图片信息
+# 用在：menu item (toggle_info)
+"Show Image Info" = ""
+
+# 中文：先显示低清预览，再换成清晰图
+# 用在：settings label (image.fast_preview)
+"Show a quick preview first" = ""
+
+# 中文：在访达中显示
+# 用在：macOS action (reveal_file)
+"Show in Finder" = ""
+
+# 中文：定位文件
+# 用在：action (reveal_file)
+"Show in Folder" = ""
+
+# 中文：通知显示在角落
+# 用在：settings label (general.corner_notices)
+"Show notices in a corner" = ""
+
+# 中文：画面上显示
+# 用在：settings label (browse.overlay_heading)
+"Show on screen" = ""
+
+# 中文：带上 Anyview 的图标
+# 用在：settings label (context_menu.icon)
+"Show the Anyview icon" = ""
+
+# 中文：先显示 RAW 里相机做的预览图
+# 用在：settings label (misc.raw_thumbnail)
+"Show the camera's preview first" = ""
+
+# 中文：顶端菜单隐藏时显示文件名
+# 用在：settings label (browse.title_filename)
+"Show the file name when the menu is hidden" = ""
+
+# 中文：标题栏隐藏时显示文件名
+# 用在：settings label (browse.title_filename)
+"Show the file name when the title bar is hidden" = ""
+
+# 中文：显示文件的EXIF信息
+# 用在：mappable action (toggle_info)
+"Show the file's EXIF info" = ""
+
+# 中文：显示菜单栏
+# 用在：settings label (browse.hide_menu_bar)
+"Show the menu bar" = ""
+
+# 中文：显示标题栏
+# 用在：settings label (browse.show_main_window)
+"Show the title bar" = ""
+
+# 中文：显示在图片四周和空窗口里
+# 用在：settings detail (browse.background_image)
+"Shown around the image and in an empty window" = ""
+
+# 中文：不另开新窗口，直接在开着的窗口里换图
+# 用在：settings detail (general.single_instance)
+"Shows them in the open window instead of a new one" = ""
+
+# 中文：侧键 1（后退）
+# 用在：settings label (mouse.x_button)
+"Side button 1 (back)" = ""
+
+# 中文：侧键 2（前进）
+# 用在：settings label (mouse.y_button)
+"Side button 2 (forward)" = ""
+
+# 中文：适马 X3F RAW 图像
+# 用在：packaging.rs (tr!)
+"Sigma X3F Raw Image" = ""
+
+# 中文：大小
+# 用在：action (sort_size)，text (PickerColumnSize)
+"Size" = ""
+
+# 中文：图片大小: {value}
+# 用在：text (InfoSize)
+"Size: {value}" = ""
+
+# 中文：有同名的 JPEG 时跳过 RAW
+# 用在：settings label (misc.skip_raw_with_jpeg)
+"Skip RAW files that have a JPEG with the same name" = ""
+
+# 中文：滑动
+# 用在：settings option (image.page_effect)
+"Slide" = ""
+
+# 中文：图片信息用小字
+# 用在：settings label (browse.small_info_font)
+"Small text for image info" = ""
+
+# 中文：拖动窗口时吸附屏幕边缘
+# 用在：settings label (general.snap_window)
+"Snap to screen edges when dragging" = ""
+
+# 中文：淡色亮底
+# 用在：settings option (browse.bar_hover_effect)
+"Soft highlight" = ""
+
+# 中文：减淡
+# 用在：action (edge_soften)
+"Soften" = ""
+
+# 中文：减淡+锐化
+# 用在：action (edge_soften_sharpen)
+"Soften+Sharpen" = ""
+
+# 中文：排序方式
+# 用在：menu title
+"Sort By" = ""
+
+# 中文：按修改日期排序
+# 用在：picker.rs (tr!)
+"Sort by Date Modified" = ""
+
+# 中文：按名称排序
+# 用在：picker.rs (tr!)
+"Sort by Name" = ""
+
+# 中文：按大小排序
+# 用在：picker.rs (tr!)
+"Sort by Size" = ""
+
+# 中文：按类型排序
+# 用在：picker.rs (tr!)
+"Sort by Type" = ""
+
+# 中文：图片比窗口高时先显示顶部
+# 用在：settings label (image.top_first)
+"Start at the top of images taller than the window" = ""
+
+# 中文：“开始”菜单快捷方式
+# 用在：packaging.rs (tr!)
+"Start menu shortcut" = ""
+
+# 中文：停在这一张
+# 用在：settings option (general.at_archive_boundary)，settings option (general.at_boundary)
+"Stay there" = ""
+
+# 中文：拉伸小图
+# 用在：action (stretch_small)
+"Stretch Small Images" = ""
+
+# 中文：更强的锐化
+# 用在：settings label (image.strong_sharpen)
+"Stronger sharpening" = ""
+
+# 中文：支持的格式
+# 用在：action (help_formats)，help.rs (tr!)
+"Supported Formats" = ""
+
+# 中文：拍摄时间: {value}
+# 用在：text (InfoTaken)
+"Taken: {value}" = ""
+
+# 中文：没有做成：{message}
+# 用在：text (SettingsThumbnailerFailed)
+"That didn’t work: {message}" = ""
+
+# 中文：DDS 的颜色掩码超出了像素位数
+# 用在：dds.rs (msg!)
+"The DDS color masks exceed the pixel size" = ""
+
+# 中文：DDS 文件不完整
+# 用在：dds.rs (msg!)
+"The DDS file is incomplete" = ""
+
+# 中文：Flatpak 版没法自带缩略图生成器。登记一个以后，KDE 的 Dolphin 等文件管理器会给系统不认识的图片（如 PSD、DDS、各家 RAW）做缩略图，每张要多等一会儿；GNOME 的“文件”用不了。
+# 用在：settings label (formats.note_flatpak_thumbnails)
+"The Flatpak version can’t bring its own thumbnailer. Once you register one, file managers such as KDE’s Dolphin make thumbnails for images your system doesn’t know (such as PSD, DDS and camera RAW), a little more slowly. GNOME Files can’t use it." = ""
+
+# 中文：GIF 自带的背景色
+# 用在：settings option (image.gif_background)
+"The GIF's own background" = ""
+
+# 中文：PCX 文件不完整
+# 用在：pcx.rs (msg!)
+"The PCX file is incomplete" = ""
+
+# 中文：PSD 文件不完整
+# 用在：psd.rs (msg!)
+"The PSD file is incomplete" = ""
+
+# 中文：PSD 没有能合成的图层
+# 用在：psd.rs (msg!)
+"The PSD has no layers that can be composited" = ""
+
+# 中文：PSD 的合成图用了 ZIP 压缩，暂不支持
+# 用在：psd.rs (msg!)
+"The PSD's composite image uses ZIP compression, which isn't supported yet" = ""
+
+# 中文：PSD 索引色的调色板不完整
+# 用在：psd.rs (msg!)
+"The PSD's indexed-color palette is incomplete" = ""
+
+# 中文：PSD 的图层太多、太大，超过了内存上限
+# 用在：psd.rs (msg!)
+"The PSD's layers are too many or too large for the memory limit" = ""
+
+# 中文：RAW 文件里没有能显示的预览图
+# 用在：decode.rs (msg!)
+"The RAW file has no preview that can be shown" = ""
+
+# 中文：RAW 的预览图超出文件
+# 用在：decode.rs (msg!)
+"The RAW preview extends past the end of the file" = ""
+
+# 中文：SVGZ 解压后太大
+# 用在：svg.rs (msg!)
+"The SVGZ is too large once decompressed" = ""
+
+# 中文：压缩包有密码，打不开
+# 用在：decode.rs (msg!)
+"The archive is password protected" = ""
+
+# 中文：解码器出错
+# 用在：api.rs (msg!)，decode.rs (msg!)，thumbnail.rs (msg!)
+"The decoder failed" = ""
+
+# 中文：文件已经装好，但没能把 Anyview 登记到 Windows（“打开方式”、缩略图等）。仍然可以从它的文件夹里直接运行。
+# 用在：packaging.rs (tr!)
+"The files were installed, but Anyview could not be registered with Windows (Open with, thumbnails). You can still run it from its folder." = ""
+
+# 中文：左边三分之一翻到上一张，右边三分之一翻到下一张
+# 用在：settings detail (mouse.click_sides)
+"The left third goes back, the right third goes forward" = ""
+
+# 中文：设置文件无法读取，已改用默认设置
+# 用在：text (NoticeSettingsUnreadable)
+"The settings file could not be read; using the defaults" = ""
+
+# 中文：设置文件无法读取，已改用默认设置（原文件另存为 {name}）
+# 用在：text (NoticeSettingsRecovered)
+"The settings file could not be read; using the defaults (the old file was saved as {name})" = ""
+
+# 中文：系统没有设为桌面图片：可能没允许 Anyview 设置背景（在系统设置的应用权限里可以改）
+# 用在：text (NoticeWallpaperNotSet)
+"The system didn’t set the desktop picture. Anyview may not be allowed to set backgrounds (check your system’s app permissions)" = ""
+
+# 中文：压缩包有密码，打不开
+# 用在：text (NoticeArchivePassword)
+"This archive is password protected" = ""
+
+# 中文：这个 Anyview 不是用安装程序装的，系统里没有登记它，上面的两个按钮不能用。
+# 用在：settings label (formats.note_windows_not_installed)
+"This copy of Anyview wasn’t installed with its setup program, so Windows doesn’t know it and the two buttons above are unavailable." = ""
+
+# 中文：这个文件超出了安全上限，打开它可能占用大量内存或磁盘空间（损坏的、别有用心的文件会这样，特别大的正常文件也会）。⏎确定它没有问题的话，可以仍然打开。
+# 用在：i18n.rs (tr!)
+"This file exceeds the safety limits and may use a lot of memory or disk space (damaged or malicious files do this, and so do unusually large ones).\nOpen it anyway if you trust it." = ""
+
+# 中文：这张图片里没有 AI 生成信息。
+# 用在：generation.rs (tr!)
+"This image has no AI generation info." = ""
+
+# 中文：已是第一个文件夹
+# 用在：text (NoticeFirstFolder)
+"This is the first folder" = ""
+
+# 中文：已是第一张 ／ 已是第一张图片
+# 用在：i18n.rs (tr!)，text (NoticeAtFirst)
+"This is the first image" = ""
+
+# 中文：已是最后一个文件夹
+# 用在：text (NoticeLastFolder)
+"This is the last folder" = ""
+
+# 中文：已是最后一张 ／ 已是最后一张图片
+# 用在：i18n.rs (tr!)，text (NoticeAtLast)
+"This is the last image" = ""
+
+# 中文：这个按键由系统使用，不能设置
+# 用在：text (SettingsKeyReserved)
+"This key is used by the system and can't be assigned" = ""
+
+# 中文：往你翻的方向读这么多张，反方向读 1 张；缓存放不下时少读几张
+# 用在：settings detail (image.prefetch_count)
+"This many in the direction you’re flipping, one the other way; fewer if they don’t fit in the cache" = ""
+
+# 中文：这个向导会把 Anyview {version} 装到这台电脑上：只装给你这个用户，不需要管理员权限。
+# 用在：packaging.rs (tr!)
+"This wizard installs Anyview {version} for your user account. No administrator rights are needed." = ""
+
+# 中文：访达里的缩略图和预览
+# 用在：settings label (formats.finder_heading)
+"Thumbnails and previews in Finder" = ""
+
+# 中文：资源管理器的缩略图
+# 用在：settings label (context_menu.thumbs_heading)，settings label (formats.explorer_heading)
+"Thumbnails in File Explorer" = ""
+
+# 中文：鼠标悬停时的提示
+# 用在：settings label (browse.hide_tooltips)
+"Tooltips" = ""
+
+# 中文：GIF 的透明处
+# 用在：settings label (image.gif_background)
+"Transparent parts of GIFs" = ""
+
+# 中文：PNG 等图片的透明处
+# 用在：settings label (image.alpha_background)
+"Transparent parts of other images" = ""
+
+# 中文：按照片里记录的方向自动摆正
+# 用在：settings label (image.exif_rotate)
+"Turn photos the way they were taken" = ""
+
+# 中文：智能双页阅览 (左->右) ／ 智能双页阅览（左→右）
+# 用在：action (double_page_ltr)，menu item (double_page_ltr)
+"Two-Page View (Left to Right)" = ""
+
+# 中文：智能双页阅览 (左<-右) ／ 智能双页阅览（左←右）
+# 用在：action (double_page_rtl)，menu item (double_page_rtl)
+"Two-Page View (Right to Left)" = ""
+
+# 中文：类型
+# 用在：action (sort_type)
+"Type" = ""
+
+# 中文：不认识的 PCX 压缩方式：{encoding}
+# 用在：pcx.rs (msg!)
+"Unknown PCX encoding: {encoding}" = ""
+
+# 中文：不认识的 PSD 颜色模式：{mode_id}
+# 用在：psd.rs (msg!)
+"Unknown PSD color mode: {mode_id}" = ""
+
+# 中文：不认识的 PSD 压缩方式：{other}
+# 用在：psd.rs (msg!)
+"Unknown PSD compression: {other}" = ""
+
+# 中文：不认识的 PSD 版本：{version}
+# 用在：psd.rs (msg!)
+"Unknown PSD version: {version}" = ""
+
+# 中文：取消登记
+# 用在：settings button (formats.buttons_flatpak_thumbnails)
+"Unregister" = ""
+
+# 中文：已取消登记，文件管理器不再用 Anyview 做缩略图
+# 用在：text (SettingsThumbnailerRemoved)
+"Unregistered: the file manager no longer uses Anyview for thumbnails" = ""
+
+# 中文：不支持的 DDS 像素位数：{bits}
+# 用在：dds.rs (msg!)
+"Unsupported DDS bit depth: {bits}" = ""
+
+# 中文：不支持的 DDS 格式（DXGI {n}）
+# 用在：dds.rs (msg!)
+"Unsupported DDS format (DXGI {n})" = ""
+
+# 中文：不支持的 DDS 格式：{name}
+# 用在：dds.rs (msg!)
+"Unsupported DDS format: {name}" = ""
+
+# 中文：不支持的 DDS 像素格式（标志 0x{flags}）
+# 用在：dds.rs (msg!)
+"Unsupported DDS pixel format (flags 0x{flags})" = ""
+
+# 中文：不支持的 JPEG XL 像素格式（{channels} 个通道）
+# 用在：jxl.rs (msg!)
+"Unsupported JPEG XL pixel format ({channels} channels)" = ""
+
+# 中文：不支持的 PCX：每平面 {bits} 位、{planes} 个平面
+# 用在：pcx.rs (msg!)
+"Unsupported PCX: {bits} bits per plane, {planes} planes" = ""
+
+# 中文：不支持的图片格式
+# 用在：decode.rs (msg!)
+"Unsupported image format" = ""
+
+# 中文：不支持的像素格式 {name}
+# 用在：jxr.rs (msg!)
+"Unsupported pixel format {name}" = ""
+
+# 中文：用推荐的
+# 用在：settings button (misc.editor)
+"Use Suggested" = ""
+
+# 中文：使用图片自带的颜色配置（ICC）
+# 用在：settings label (image.file_icc)
+"Use the image's color profile (ICC)" = ""
+
+# 中文：使用显示器的颜色配置（ICC）
+# 用在：settings label (image.monitor_icc)
+"Use the monitor's color profile (ICC)" = ""
+
+# 中文：显示
+# 用在：menu title
+"View" = ""
+
+# 中文：浏览方式
+# 用在：menu title
+"View Mode" = ""
+
+# 中文：看图片
+# 用在：i18n.rs (tr!)
+"View images" = ""
+
+# 中文：滚轮向下
+# 用在：settings label (mouse.wheel_down)
+"Wheel down" = ""
+
+# 中文：滚轮向上
+# 用在：settings label (mouse.wheel_up)
+"Wheel up" = ""
+
+# 中文：关掉后播放动图时左下角不显示（空格照常暂停）
+# 用在：settings detail (browse.hide_animation_info)
+"When off, Space still pauses" = ""
+
+# 中文：白色
+# 用在：settings option (image.alpha_background)，settings option (image.gif_background)
+"White" = ""
+
+# 中文：窗口
+# 用在：menu title，settings label (browse.window_heading)，settings label (general.window_heading)
+"Window" = ""
+
+# 中文：多个窗口
+# 用在：settings label (bookmarks.windows_heading)
+"Windows" = ""
+
+# 中文：Windows 光标
+# 用在：packaging.rs (tr!)
+"Windows Cursor" = ""
+
+# 中文：转到另一头
+# 用在：settings option (general.at_archive_boundary)，settings option (general.at_boundary)
+"Wrap around" = ""
+
+# 中文：自己设的快捷键优先：和默认快捷键用同一个键时，用这里设的。默认的快捷键可以在“键盘快捷键”窗口里查看。
+# 用在：settings page (keyboard)
+"Your own shortcuts come first: when one uses the same key as a default shortcut, yours wins. The defaults are listed in the Keyboard Shortcuts window." = ""
+
+# 中文：缩放 ／ 缩放工具
+# 用在：macOS menu item (maximize)，menu title
+"Zoom" = ""
+
+# 中文：放大
+# 用在：action (zoom_in)
+"Zoom In" = ""
+
+# 中文：放大 1% ／ 放大(1%)
+# 用在：action (zoom_in_1)，menu item (zoom_in_1)
+"Zoom In 1%" = ""
+
+# 中文：缩小
+# 用在：action (zoom_out)
+"Zoom Out" = ""
+
+# 中文：缩小 1% ／ 缩小(1%)
+# 用在：action (zoom_out_1)，menu item (zoom_out_1)
+"Zoom Out 1%" = ""
+
+# 中文：放大
+# 用在：mappable action (zoom_in)
+"Zoom in" = ""
+
+# 中文：缩小
+# 用在：mappable action (zoom_out)
+"Zoom out" = ""
+
+# 中文：缩放比例
+# 用在：settings label (browse.hide_zoom_info)
+"Zoom percentage" = ""
+
+# 中文：没能开始解压
+# 用在：archive.rs (msg!)
+"cannot start extracting" = ""
+
+# 中文：数据长度
+# 用在：jxr.rs (msg!)
+"data length" = ""
+
+# 中文：数据越过文件结尾
+# 用在：jxr.rs (msg!)
+"data past the end of the file" = ""
+
+# 中文：目录
+# 用在：jxr.rs (msg!)
+"directory" = ""
+
+# 中文：目录位置
+# 用在：jxr.rs (msg!)
+"directory offset" = ""
+
+# 中文：文件头
+# 用在：jxr.rs (msg!)
+"header" = ""
+
+# 中文：张
+# 用在：settings.rs (tr!)
+"images" = ""
+
+# 中文：Flatpak 版请在系统设置的“默认应用程序”里选择 Anyview
+# 用在：text (SettingsDefaultViewerFlatpak)
+"in the Flatpak version, choose Anyview in your system’s Default Applications settings" = ""
+
+# 中文：目录不全
+# 用在：jxr.rs (msg!)
+"incomplete directory" = ""
+
+# 中文：jxrlib 错误 {code}
+# 用在：jxr.rs (msg!)
+"jxrlib error {code}" = ""
+
+# 中文：libheif 无法分配
+# 用在：heif.rs (msg!)
+"libheif could not allocate memory" = ""
+
+# 中文：libheif 错误 {code}：{message}
+# 用在：heif.rs (msg!)
+"libheif error {code}: {message}" = ""
+
+# 中文：libheif 没有给出图像
+# 用在：heif.rs (msg!)
+"libheif returned no image" = ""
+
+# 中文：没有图像数据
+# 用在：jxr.rs (msg!)
+"no image data" = ""
+
+# 中文：没有像素格式
+# 用在：jxr.rs (msg!)
+"no pixel format" = ""
+
+# 中文：不是压缩包
+# 用在：archive.rs (msg!)
+"not an archive" = ""
+
+# 中文：压缩包里没有这一项
+# 用在：archive.rs (msg!)
+"not found in the archive" = ""
+
+# 中文：方向
+# 用在：jxr.rs (msg!)
+"orientation" = ""
+
+# 中文：压缩包有密码
+# 用在：archive.rs (msg!)
+"password protected" = ""
+
+# 中文：像素格式
+# 用在：jxr.rs (msg!)
+"pixel format" = ""
+
+# 中文：解压超时
+# 用在：archive.rs (msg!)
+"timed out" = ""
+
+# 中文：{base}（降序）
+# 用在：picker.rs (tr!)
+"{base} (Descending)" = ""
+
+# 中文：不支持 {depth} 位的 PSD
+# 用在：psd.rs (msg!)
+"{depth}-bit PSD files aren't supported" = ""
+
+# 中文：{label}须是 {min} 到 {max} 之间的整数。
+# 用在：settings.rs (tr!)
+"{label} must be a whole number from {min} to {max}." = ""
+
+# 中文：{path} 不是 Anyview 登记的，没有动它
+# 用在：text (SettingsThumbnailerNotOurs)
+"{path} wasn’t registered by Anyview, so it was left alone" = ""
