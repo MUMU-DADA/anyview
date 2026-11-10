@@ -1,0 +1,20 @@
+[package]
+name = "anyview-ffi"
+description = "Anyview 核心的跨语言接口（UniFFI），供 Swift、C# 调用"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[lib]
+name = "anyview_ffi"
+# lib：Rust 测试用；staticlib：链接进 macOS 应用；cdylib：供 uniffi-bindgen 以 library 模式读取接口
+crate-type = ["lib", "staticlib", "cdylib"]
+
+[dependencies]
+anyview-core.workspace = true
+uniffi.workspace = true
+
+[dev-dependencies]
+image = { workspace = true, features = ["png"] }

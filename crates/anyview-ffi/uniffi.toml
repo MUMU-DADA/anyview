@@ -1,0 +1,12 @@
+# Swift 绑定：高层模块 AnyviewCore，底层 C 模块 AnyviewFFI（XCFramework 的模块名与之一致）
+[bindings.swift]
+module_name = "AnyviewCore"
+ffi_module_name = "AnyviewFFI"
+ffi_module_filename = "AnyviewFFI"
+
+# C# 绑定（Windows 界面）：third_party/uniffi-bindgen-cs 生成，命名空间 Anyview.Core，
+# 顶层函数放在静态类 AnyviewCore 里（与 Swift 的模块名一致），运行时加载 anyview_ffi.dll。
+[bindings.csharp]
+namespace = "Anyview.Core"
+global_methods_class_name = "AnyviewCore"
+cdylib_name = "anyview_ffi"

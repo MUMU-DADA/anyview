@@ -1,0 +1,29 @@
+[package]
+name = "anyview-fixtures"
+description = "生成 Anyview 的测试图片（不使用真实照片）；decode-check 用别的软件存的真实文件核对自写的解码器"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+# 还有 decode-check（src/bin/）：`cargo run -p anyview-fixtures` 默认运行生成测试图片的这个。
+default-run = "anyview-fixtures"
+
+[[bin]]
+name = "anyview-fixtures"
+path = "src/main.rs"
+
+[dependencies]
+# 测试用的 ICC 配置文件（color::linear_srgb_test_profile）。
+anyview-core.workspace = true
+image = { workspace = true, features = ["png", "jpeg", "gif", "webp", "bmp", "tiff", "exr", "hdr", "qoi"] }
+# 动图（anim/）：直接用编码库，控制调色板、背景色、透明色和 APNG。
+gif = "0.14"
+png = "0.18"
+# 压缩包（archives/）：ZIP 用 deflate 压缩，7Z 用固实 LZMA2；RAR 只能自己按格式写"不压缩"的。
+zip = { version = "8.6", default-features = false, features = ["deflate-flate2-zlib-rs"] }
+sevenz-rust2 = { version = "=0.24.1", default-features = false, features = ["compress"] }
+# modern/ 的 SVGZ（gzip 压缩的 SVG）。
+flate2 = "1.1"
+# modern/ 的 Clip Studio Paint 文件：内嵌的 SQLite 数据库（与核心用的是同一个）。
+rusqlite = { version = "=0.41.1", default-features = false, features = ["bundled", "serialize", "hooks"] }
