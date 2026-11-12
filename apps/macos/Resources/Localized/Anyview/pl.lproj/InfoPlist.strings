@@ -1,0 +1,16 @@
+/* 由核心的测试按 crates/anyview-core/src/packaging.rs 生成，不要手改。 */
+"Image" = "Obraz";
+"Image File" = "Plik obrazu";
+"Comic Archive" = "Archiwum komiksu";
+"QOI Image" = "Obraz QOI";
+"Clip Studio Paint Illustration" = "Ilustracja Clip Studio Paint";
+"JPEG XR Image" = "Obraz JPEG XR";
+"JFIF Image" = "Obraz JFIF";
+"Animated PNG Image" = "Animowany obraz PNG";
+"Portable Anymap Image" = "Obraz Portable Anymap";
+"Windows Cursor" = "Kursor systemu Windows";
+"PCX Image" = "Obraz PCX";
+"JPEG 2000 Codestream" = "Strumień kodowy JPEG 2000";
+"AVIF Image Sequence" = "Sekwencja obrazów AVIF";
+"Kodak KDC Raw Image" = "Obraz RAW Kodak KDC";
+"Sigma X3F Raw Image" = "Obraz RAW Sigma X3F";

@@ -1,0 +1,16 @@
+/* 由核心的测试按 crates/anyview-core/src/packaging.rs 生成，不要手改。 */
+"Image" = "Зображення";
+"Image File" = "Файл зображення";
+"Comic Archive" = "Архів коміксів";
+"QOI Image" = "Зображення QOI";
+"Clip Studio Paint Illustration" = "Ілюстрація Clip Studio Paint";
+"JPEG XR Image" = "Зображення JPEG XR";
+"JFIF Image" = "Зображення JFIF";
+"Animated PNG Image" = "Анімоване зображення PNG";
+"Portable Anymap Image" = "Зображення Portable Anymap";
+"Windows Cursor" = "Курсор Windows";
+"PCX Image" = "Зображення PCX";
+"JPEG 2000 Codestream" = "Кодовий потік JPEG 2000";
+"AVIF Image Sequence" = "Послідовність зображень AVIF";
+"Kodak KDC Raw Image" = "RAW-зображення Kodak KDC";
+"Sigma X3F Raw Image" = "RAW-зображення Sigma X3F";

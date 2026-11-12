@@ -1,0 +1,16 @@
+/* 由核心的测试按 crates/anyview-core/src/packaging.rs 生成，不要手改。 */
+"Image" = "छवि";
+"Image File" = "छवि फ़ाइल";
+"Comic Archive" = "कॉमिक आर्काइव";
+"QOI Image" = "QOI छवि";
+"Clip Studio Paint Illustration" = "Clip Studio Paint चित्रण";
+"JPEG XR Image" = "JPEG XR छवि";
+"JFIF Image" = "JFIF छवि";
+"Animated PNG Image" = "एनिमेटेड PNG छवि";
+"Portable Anymap Image" = "Portable Anymap छवि";
+"Windows Cursor" = "Windows कर्सर";
+"PCX Image" = "PCX छवि";
+"JPEG 2000 Codestream" = "JPEG 2000 कोडस्ट्रीम";
+"AVIF Image Sequence" = "AVIF छवि अनुक्रम";
+"Kodak KDC Raw Image" = "Kodak KDC RAW छवि";
+"Sigma X3F Raw Image" = "Sigma X3F RAW छवि";

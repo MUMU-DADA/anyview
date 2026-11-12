@@ -1,0 +1,16 @@
+/* 由核心的测试按 crates/anyview-core/src/packaging.rs 生成，不要手改。 */
+"Image" = "Resim";
+"Image File" = "Görüntü dosyası";
+"Comic Archive" = "Çizgi roman arşivi";
+"QOI Image" = "QOI görüntüsü";
+"Clip Studio Paint Illustration" = "Clip Studio Paint çizimi";
+"JPEG XR Image" = "JPEG XR görüntüsü";
+"JFIF Image" = "JFIF görüntüsü";
+"Animated PNG Image" = "Hareketli PNG görüntüsü";
+"Portable Anymap Image" = "Portable Anymap görüntüsü";
+"Windows Cursor" = "Windows imleci";
+"PCX Image" = "PCX görüntüsü";
+"JPEG 2000 Codestream" = "JPEG 2000 kod akışı";
+"AVIF Image Sequence" = "AVIF görüntü dizisi";
+"Kodak KDC Raw Image" = "Kodak KDC RAW görüntüsü";
+"Sigma X3F Raw Image" = "Sigma X3F RAW görüntüsü";

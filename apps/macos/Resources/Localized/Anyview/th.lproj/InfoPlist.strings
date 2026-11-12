@@ -1,0 +1,16 @@
+/* 由核心的测试按 crates/anyview-core/src/packaging.rs 生成，不要手改。 */
+"Image" = "รูปภาพ";
+"Image File" = "ไฟล์ภาพ";
+"Comic Archive" = "ไฟล์บีบอัดการ์ตูน";
+"QOI Image" = "ภาพ QOI";
+"Clip Studio Paint Illustration" = "ภาพประกอบ Clip Studio Paint";
+"JPEG XR Image" = "ภาพ JPEG XR";
+"JFIF Image" = "ภาพ JFIF";
+"Animated PNG Image" = "ภาพ PNG แบบเคลื่อนไหว";
+"Portable Anymap Image" = "ภาพ Portable Anymap";
+"Windows Cursor" = "เคอร์เซอร์ Windows";
+"PCX Image" = "ภาพ PCX";
+"JPEG 2000 Codestream" = "โค้ดสตรีม JPEG 2000";
+"AVIF Image Sequence" = "ลำดับภาพ AVIF";
+"Kodak KDC Raw Image" = "ภาพ RAW ของ Kodak KDC";
+"Sigma X3F Raw Image" = "ภาพ RAW ของ Sigma X3F";

@@ -1,0 +1,16 @@
+/* 由核心的测试按 crates/anyview-core/src/packaging.rs 生成，不要手改。 */
+"Image" = "Gambar";
+"Image File" = "File gambar";
+"Comic Archive" = "Arsip komik";
+"QOI Image" = "Gambar QOI";
+"Clip Studio Paint Illustration" = "Ilustrasi Clip Studio Paint";
+"JPEG XR Image" = "Gambar JPEG XR";
+"JFIF Image" = "Gambar JFIF";
+"Animated PNG Image" = "Gambar PNG animasi";
+"Portable Anymap Image" = "Gambar Portable Anymap";
+"Windows Cursor" = "Kursor Windows";
+"PCX Image" = "Gambar PCX";
+"JPEG 2000 Codestream" = "Codestream JPEG 2000";
+"AVIF Image Sequence" = "Urutan gambar AVIF";
+"Kodak KDC Raw Image" = "Gambar RAW Kodak KDC";
+"Sigma X3F Raw Image" = "Gambar RAW Sigma X3F";

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- 访达预览扩展（按空格）的模板：tools/macos/编译测试.command 替换 __VERSION__、__BUILD__，
+     用 plutil 把类型调查（apps/macos/Tools/TypeSurvey）选出的类型填进 QLSupportedContentTypes，放进
+     Anyview.app/Contents/PlugIns/AnyviewPreview.appex。Bundle ID 随主程序保持一致。 -->
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<!-- 各语言的名字在 Localized/AnyviewPreview/<语言>.lproj/InfoPlist.strings（由核心测试校验生成）。 -->
+	<key>CFBundleDisplayName</key>
+	<string>Anyview Preview</string>
+	<key>CFBundleExecutable</key>
+	<string>AnyviewPreview</string>
+	<key>CFBundleIdentifier</key>
+	<string>local.anyview.Anyview.Preview</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>AnyviewPreview</string>
+	<key>CFBundlePackageType</key>
+	<string>XPC!</string>
+	<key>CFBundleShortVersionString</key>
+	<string>__VERSION__</string>
+	<key>CFBundleVersion</key>
+	<string>__BUILD__</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>14.0</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>QLSupportedContentTypes</key>
+			<!-- 编译时由 plutil -replace 换成类型调查选出的类型。 -->
+			<array/>
+			<key>QLIsDataBasedPreview</key>
+			<true/>
+			<key>QLSupportsSearchableItems</key>
+			<false/>
+		</dict>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.quicklook.preview</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>PreviewProvider</string>
+	</dict>
+</dict>
+</plist>
