@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="72 72 880 880">
+  <defs>
+    <linearGradient id="base" x1="180" y1="100" x2="850" y2="924" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#384C93"/>
+      <stop offset="1" stop-color="#172449"/>
+    </linearGradient>
+    <linearGradient id="light" x1="430" y1="370" x2="590" y2="653" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D5FFF0"/>
+      <stop offset="1" stop-color="#5BE4CE"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1024" height="1024" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+  <rect x="106" y="120" width="812" height="812" rx="182" fill="#142041" opacity="0.13" filter="url(#shadow)"/>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#base)"/>
+  <path d="M392 276H318Q276 276 276 318V392M632 276H706Q748 276 748 318V392M748 632V706Q748 748 706 748H632M392 748H318Q276 748 276 706V632" fill="none" stroke="#F0F5FF" stroke-width="58" stroke-linecap="round"/>
+  <path d="M485 364Q512 337 539 364L660 485Q687 512 660 539L539 660Q512 687 485 660L364 539Q337 512 364 485Z" fill="url(#light)"/>
+</svg>

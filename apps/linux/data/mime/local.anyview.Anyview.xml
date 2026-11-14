@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Anyview 给系统补的两种图片类型：shared-mime-info 里没有它们，文件管理器就把 .pam 当纯文本、
+     .clip 当普通二进制文件，缩略图生成器和“打开方式”都认领不到。安装包把本文件放进 /usr/share/mime/packages/，
+     再运行 update-mime-database。按扩展名认，也按文件开头的标记认。 -->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="image/x-portable-arbitrarymap">
+    <comment>PAM image</comment>
+    <comment xml:lang="zh_CN">PAM 图像</comment>
+    <comment xml:lang="zh_SG">PAM 图像</comment>
+    <comment xml:lang="zh_TW">PAM 影像</comment>
+    <comment xml:lang="zh_HK">PAM 影像</comment>
+    <comment xml:lang="zh_MO">PAM 影像</comment>
+    <comment xml:lang="ja">PAMイメージ</comment>
+    <comment xml:lang="ko">PAM 이미지</comment>
+    <comment xml:lang="es">Imagen PAM</comment>
+    <comment xml:lang="fr">Image PAM</comment>
+    <comment xml:lang="de">PAM-Bild</comment>
+    <comment xml:lang="pt_BR">Imagem PAM</comment>
+    <comment xml:lang="pt">Imagem PAM</comment>
+    <comment xml:lang="ru">Изображение PAM</comment>
+    <comment xml:lang="it">Immagine PAM</comment>
+    <comment xml:lang="tr">PAM görüntüsü</comment>
+    <comment xml:lang="pl">Obraz PAM</comment>
+    <comment xml:lang="nl">PAM-afbeelding</comment>
+    <comment xml:lang="vi">Ảnh PAM</comment>
+    <comment xml:lang="id">Gambar PAM</comment>
+    <comment xml:lang="th">ภาพ PAM</comment>
+    <comment xml:lang="uk">Зображення PAM</comment>
+    <comment xml:lang="hi">PAM छवि</comment>
+    <sub-class-of type="image/x-portable-anymap"/>
+    <magic priority="50">
+      <match type="string" value="P7\n" offset="0"/>
+    </magic>
+    <glob pattern="*.pam"/>
+  </mime-type>
+  <mime-type type="image/x-clip-studio-paint">
+    <comment>Clip Studio Paint illustration</comment>
+    <comment xml:lang="zh_CN">Clip Studio Paint 插画</comment>
+    <comment xml:lang="zh_SG">Clip Studio Paint 插画</comment>
+    <comment xml:lang="zh_TW">Clip Studio Paint 插畫</comment>
+    <comment xml:lang="zh_HK">Clip Studio Paint 插畫</comment>
+    <comment xml:lang="zh_MO">Clip Studio Paint 插畫</comment>
+    <comment xml:lang="ja">Clip Studio Paintイラスト</comment>
+    <comment xml:lang="ko">Clip Studio Paint 일러스트</comment>
+    <comment xml:lang="es">Ilustración de Clip Studio Paint</comment>
+    <comment xml:lang="fr">Illustration Clip Studio Paint</comment>
+    <comment xml:lang="de">Clip-Studio-Paint-Illustration</comment>
+    <comment xml:lang="pt_BR">Ilustração do Clip Studio Paint</comment>
+    <comment xml:lang="pt">Ilustração do Clip Studio Paint</comment>
+    <comment xml:lang="ru">Иллюстрация Clip Studio Paint</comment>
+    <comment xml:lang="it">Illustrazione di Clip Studio Paint</comment>
+    <comment xml:lang="tr">Clip Studio Paint çizimi</comment>
+    <comment xml:lang="pl">Ilustracja Clip Studio Paint</comment>
+    <comment xml:lang="nl">Clip Studio Paint-illustratie</comment>
+    <comment xml:lang="vi">Hình minh họa Clip Studio Paint</comment>
+    <comment xml:lang="id">Ilustrasi Clip Studio Paint</comment>
+    <comment xml:lang="th">ภาพประกอบ Clip Studio Paint</comment>
+    <comment xml:lang="uk">Ілюстрація Clip Studio Paint</comment>
+    <comment xml:lang="hi">Clip Studio Paint चित्रण</comment>
+    <magic priority="60">
+      <match type="string" value="CSFCHUNK" offset="0"/>
+    </magic>
+    <glob pattern="*.clip"/>
+  </mime-type>
+</mime-info>

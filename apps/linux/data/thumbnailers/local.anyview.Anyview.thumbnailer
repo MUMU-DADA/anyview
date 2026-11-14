@@ -1,0 +1,7 @@
+# 缩略图生成器：给装进系统的 Anyview 用（安装包把它放进 /usr/share/thumbnailers/，
+# 程序放在 /usr/bin/anyview）。GNOME 的 Nautilus 等按 freedesktop 的规范调用；只列 GNOME 默认一般不认识的格式，
+# 常见格式仍由系统自己的缩略图生成器做。PAM、CLIP 的类型由 Anyview 自带的 mime/local.anyview.Anyview.xml 定义。KDE（KIO 6）也调用这类生成器，但自己有插件的格式先用自己的（如 CLIP 由 Anyview 生成缩略图）。
+[Thumbnailer Entry]
+TryExec=anyview
+Exec=anyview --thumbnail %i %o %s
+MimeType=image/qoi;image/x-portable-arbitrarymap;image/x-clip-studio-paint;image/vnd.adobe.photoshop;image/vnd.ms-dds;image/vnd.zbrush.pcx;image/jxr;image/jp2;image/jpx;image/x-jp2-codestream;image/x-exr;image/vnd.radiance;image/x-adobe-dng;image/x-canon-cr2;image/x-canon-cr3;image/x-canon-crw;image/x-nikon-nef;image/x-nikon-nrw;image/x-olympus-orf;image/x-panasonic-rw2;image/x-pentax-pef;image/x-sony-sr2;image/x-sony-arw;image/x-sony-srf;image/x-fuji-raf;image/x-hasselblad-3fr;image/x-hasselblad-fff;image/x-phaseone-iiq;image/x-samsung-srw;image/x-sigma-x3f;image/x-epson-erf;image/x-minolta-mrw;image/x-leaf-mos;image/x-kodak-kdc;image/x-kodak-dcr;

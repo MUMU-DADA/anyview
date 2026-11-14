@@ -1,0 +1,22 @@
+[package]
+name = "anyview-linux"
+description = "Anyview 的 Linux 界面（GTK4，不使用 libadwaita）"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "anyview"
+path = "src/main.rs"
+
+[dependencies]
+anyview-core.workspace = true
+gtk = { workspace = true, features = ["v4_14"] }
+async-channel.workspace = true
+serde_json.workspace = true
+# HEIC、AVIF：运行时打开系统里的 libheif（不打包）。
+libloading = "0.9"
+# 自测改设置文件（多窗口共享设置）。
+toml.workspace = true
