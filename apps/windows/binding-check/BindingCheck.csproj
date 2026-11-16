@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    C# UniFFI 绑定集成测试：通过 uniffi-bindgen-cs 生成的绑定调用 Windows 核心 DLL，可在 Wine 或 Windows 中运行，不依赖 WinUI。
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <AssemblyName>BindingCheck</AssemblyName>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <LangVersion>latest</LangVersion>
+    <!-- 生成的绑定：tools/windows/build-core.sh 和核心的 DLL 一起生成在 out/windows/bindings/。 -->
+    <AnyviewBindings Condition="'$(AnyviewBindings)' == ''">$(MSBuildThisFileDirectory)../../../out/windows/bindings/anyview_ffi.cs</AnyviewBindings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(AnyviewBindings)" Link="anyview_ffi.cs" />
+  </ItemGroup>
+</Project>

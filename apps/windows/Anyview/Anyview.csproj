@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Anyview Windows 应用（C# + WinUI 3 + Win2D，纯代码无 XAML）。
+       通过 uniffi-bindgen-cs 生成的 C# 绑定调用核心 anyview_ffi.dll（tools/windows/build-core.sh）。
+       发布方式：自包含（随包附带 Windows App SDK 与 Win2D），并通过 Native AOT 预编译为本机代码。 -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <SelfContained>true</SelfContained>
+    <!-- 发布时使用 Native AOT 将 C# 界面代码与 .NET 运行时编译为本机可执行文件
+         Anyview.exe（约 6 MB），不再带 .NET 的几百个文件，装好后从 245 MB 降到 90 多兆。编译要这台电脑上有
+         Visual Studio 的 C++ 生成工具（链接器和 Windows SDK 的库）。编译器会整体分析哪些代码用得到，靠运行时反射的
+         写法它分析不了、会报警告：警告一律当错误（见下面），不带着警告发布。 -->
+    <PublishAot>true</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <DisableTransitiveFrameworkReferenceDownloads>true</DisableTransitiveFrameworkReferenceDownloads>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- 应用图标：由 tools/icon/make-icons.py 从 assets/icon/anyview.svg 生成；编进 exe（资源管理器、
+         任务栏用），也复制到输出目录给窗口用（AppWindow.SetIcon）。 -->
+    <ApplicationIcon>Assets\Anyview.ico</ApplicationIcon>
+    <AssemblyName>Anyview</AssemblyName>
+    <RootNamespace>Anyview</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <!-- 生成的绑定：tools/windows/build-core.sh 和核心的 DLL 一起生成在 out/windows/bindings/。 -->
+    <AnyviewBindings Condition="'$(AnyviewBindings)' == ''">$(MSBuildThisFileDirectory)../../../out/windows/bindings/anyview_ffi.cs</AnyviewBindings>
+    <!-- 生成的绑定里有些写法会报可空性警告，不是本项目的代码。 -->
+    <NoWarn>$(NoWarn);CS8618;CS8625</NoWarn>
+    <!-- 预先编译成本机代码以后会出问题的写法（裁剪、AOT 分析器的 IL2xxx、IL3xxx，CsWinRT 的“实现了 WinRT 接口的类要标
+         partial”）当成错误：这类问题编译时不拦下，要到运行时才以“不支持此接口”之类的方式冒出来。 -->
+    <WarningsAsErrors>$(WarningsAsErrors);IL2026;IL2046;IL2050;IL2055;IL2057;IL2060;IL2062;IL2067;IL2070;IL2072;IL2075;IL2077;IL2087;IL2091;IL2104;IL3000;IL3050;IL3053;CsWinRT1028;CsWinRT1029;CsWinRT1030</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Windows App SDK 1.8 只引用界面部分。 -->
+    <PackageReference Include="Microsoft.WindowsAppSDK.WinUI" Version="1.8.260803003" />
+    <!-- 画布（ARCHITECTURE"画布用 Win2D/Direct2D"）：Win2D 1.4.0（2026-03-16，MIT），依赖的就是上面的 WinUI 组件包。 -->
+    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(AnyviewBindings)" Link="anyview_ffi.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Anyview.ico" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
