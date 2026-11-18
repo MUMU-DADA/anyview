@@ -1,0 +1,37 @@
+﻿Anyview portable: while this file is here, settings, recent files and archive positions are kept in the data folder next to it, and nothing is written to the system. To remove Anyview, delete the whole folder; nothing is left behind. If you delete this file, Anyview uses your user folder instead.
+
+Anyview 免安装版：这个文件在的时候，设置、最近打开的文件和压缩包里看到的位置都存在旁边的 data 文件夹里，不写进系统。不要了就把整个文件夹删掉，什么都不会留下。删掉这个文件，Anyview 就改用系统里你的用户文件夹。
+
+Anyview 免安裝版：這個檔案在的時候，設定、最近開啟的檔案和壓縮檔裡看到的位置都存在旁邊的 data 資料夾裡，不寫進系統。不要了就把整個資料夾刪掉，什麼都不會留下。刪掉這個檔案，Anyview 就改用系統裡你的使用者資料夾。
+
+Anyview ポータブル版：このファイルがある間、設定、最近開いたファイル、アーカイブ内で見ていた位置は隣の data フォルダーに保存され、システムには何も書き込みません。不要になったらフォルダーごと削除すれば何も残りません。このファイルを削除すると、Anyview はユーザーフォルダーを使うようになります。
+
+Anyview 무설치 버전: 이 파일이 있는 동안 설정, 최근 연 파일, 압축 파일에서 보던 위치는 옆의 data 폴더에 저장되며 시스템에는 아무것도 기록하지 않습니다. 필요 없어지면 폴더째 삭제하면 아무것도 남지 않습니다. 이 파일을 삭제하면 Anyview는 사용자 폴더를 사용합니다.
+
+Anyview portátil: mientras este archivo esté aquí, la configuración, los archivos recientes y las posiciones en archivos comprimidos se guardan en la carpeta data que está a su lado, y no se escribe nada en el sistema. Para quitar Anyview, elimina la carpeta entera; no queda nada. Si eliminas este archivo, Anyview usará tu carpeta de usuario.
+
+Anyview portable : tant que ce fichier est présent, les réglages, les fichiers récents et les positions dans les archives sont enregistrés dans le dossier data à côté, et rien n’est écrit dans le système. Pour supprimer Anyview, supprimez le dossier entier ; il ne reste rien. Si vous supprimez ce fichier, Anyview utilise votre dossier utilisateur.
+
+Anyview portabel: Solange diese Datei hier liegt, werden Einstellungen, zuletzt geöffnete Dateien und Positionen in Archiven im Ordner data daneben gespeichert, und es wird nichts ins System geschrieben. Zum Entfernen den ganzen Ordner löschen – es bleibt nichts zurück. Wird diese Datei gelöscht, verwendet Anyview Ihren Benutzerordner.
+
+Anyview portátil: enquanto este arquivo estiver aqui, as configurações, os arquivos recentes e as posições em arquivos compactados ficam na pasta data ao lado, e nada é gravado no sistema. Para remover o Anyview, exclua a pasta inteira; nada fica para trás. Se você excluir este arquivo, o Anyview passa a usar sua pasta de usuário.
+
+Anyview, портативная версия: пока этот файл здесь, настройки, недавние файлы и позиции в архивах хранятся в папке data рядом с ним, а в систему ничего не записывается. Чтобы удалить Anyview, удалите всю папку — ничего не останется. Если удалить этот файл, Anyview будет использовать вашу папку пользователя.
+
+Anyview portatile: finché questo file è qui, impostazioni, file recenti e posizioni negli archivi vengono salvati nella cartella data accanto e nel sistema non viene scritto nulla. Per rimuovere Anyview, elimina l’intera cartella: non resta nulla. Se elimini questo file, Anyview usa la tua cartella utente.
+
+Anyview taşınabilir sürüm: Bu dosya burada olduğu sürece ayarlar, son açılan dosyalar ve arşivlerdeki konumlar yanındaki data klasöründe tutulur ve sisteme hiçbir şey yazılmaz. Anyview’ı kaldırmak için klasörün tamamını silin; geride hiçbir şey kalmaz. Bu dosyayı silerseniz Anyview kullanıcı klasörünüzü kullanır.
+
+Anyview w wersji przenośnej: dopóki ten plik tu jest, ustawienia, ostatnio otwierane pliki i pozycje w archiwach są zapisywane w folderze data obok, a do systemu nic nie trafia. Aby usunąć Anyview, usuń cały folder — nic nie zostanie. Jeśli usuniesz ten plik, Anyview będzie używać Twojego folderu użytkownika.
+
+Anyview portable: zolang dit bestand hier staat, worden instellingen, recente bestanden en posities in archieven bewaard in de map data ernaast en wordt er niets naar het systeem geschreven. Verwijder de hele map om Anyview te verwijderen; er blijft niets achter. Als je dit bestand verwijdert, gebruikt Anyview je gebruikersmap.
+
+Anyview bản không cần cài: khi tệp này còn ở đây, cài đặt, các tệp mở gần đây và vị trí đang xem trong tệp nén được lưu trong thư mục data bên cạnh, không ghi gì vào hệ thống. Muốn gỡ Anyview thì xóa cả thư mục, không còn sót lại gì. Nếu xóa tệp này, Anyview sẽ dùng thư mục người dùng của bạn.
+
+Anyview portabel: selama file ini ada di sini, pengaturan, file terbaru, dan posisi di dalam arsip disimpan di folder data di sebelahnya, dan tidak ada yang ditulis ke sistem. Untuk menghapus Anyview, hapus seluruh foldernya; tidak ada yang tertinggal. Jika file ini dihapus, Anyview akan memakai folder pengguna Anda.
+
+Anyview แบบพกพา: ขณะที่ไฟล์นี้อยู่ที่นี่ การตั้งค่า ไฟล์ล่าสุด และตำแหน่งในไฟล์บีบอัดจะเก็บไว้ในโฟลเดอร์ data ข้าง ๆ โดยไม่เขียนอะไรลงในระบบ หากไม่ต้องการแล้ว ให้ลบทั้งโฟลเดอร์ จะไม่เหลืออะไรไว้ หากลบไฟล์นี้ Anyview จะใช้โฟลเดอร์ผู้ใช้ของคุณแทน
+
+Anyview, портативна версія: поки цей файл тут, налаштування, нещодавні файли й позиції в архівах зберігаються в папці data поруч, а в систему нічого не записується. Щоб видалити Anyview, видаліть усю папку — нічого не залишиться. Якщо видалити цей файл, Anyview використовуватиме вашу папку користувача.
+
+Anyview पोर्टेबल: जब तक यह फ़ाइल यहाँ है, सेटिंग्स, हाल की फ़ाइलें और आर्काइव में देखी गई जगह पास के data फ़ोल्डर में रखी जाती हैं, और सिस्टम में कुछ नहीं लिखा जाता। Anyview हटाना हो तो पूरा फ़ोल्डर मिटा दें; कुछ भी बचा नहीं रहेगा। यह फ़ाइल हटाने पर Anyview आपके उपयोगकर्ता फ़ोल्डर का उपयोग करेगा।

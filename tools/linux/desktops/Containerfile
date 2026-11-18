@@ -1,0 +1,19 @@
+# Anyview Linux 版在真实桌面（KDE Plasma、GNOME）里检查用的镜像。
+# 只放运行库和两个桌面；Anyview 本身用 anyview-dev 容器里编好的 target/release/anyview，运行时只读挂进来。
+# 可复用测试镜像，容器按需创建并在运行后自动销毁；见 run.sh、clean.sh。
+FROM docker.io/library/archlinux:latest
+
+# Anyview 的运行库：gtk4；libheif（HEIC、AVIF，运行时加载）；中文字体。
+# KDE：kwin（--virtual 虚拟屏幕）、dolphin、kio-extras（缩略图插件）、kimageformats、spectacle（截图）、kde-cli-tools（kioclient）。
+# GNOME：gnome-shell（--headless）、nautilus、gnome-desktop-4（缩略图生成器的调度）、bubblewrap（GNOME 在沙盒里跑缩略图生成器）。
+# python-gobject：检查脚本读 D-Bus、算缩略图缓存的文件名。
+RUN pacman -Syu --noconfirm --needed \
+        gtk4 libheif noto-fonts noto-fonts-cjk mesa glibc-locales python python-gobject dbus xdg-utils \
+        kwin dolphin kio-extras kimageformats qt6-imageformats breeze breeze-icons spectacle kde-cli-tools qt6-tools \
+        gnome-shell nautilus gnome-desktop-4 bubblewrap adwaita-icon-theme \
+    && rm -rf /var/cache/pacman/pkg/*
+
+# kwin_wayland 带 cap_sys_nice（文件权限标记），无特权的容器里因此不能执行（Operation not permitted）：只在镜像里去掉。
+RUN setcap -r /usr/bin/kwin_wayland
+
+ENV LANG=zh_CN.UTF-8
