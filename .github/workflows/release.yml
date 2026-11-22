@@ -1,0 +1,395 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to build and publish (e.g. v0.1.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    name: Resolve version
+    runs-on: ubuntu-24.04
+    outputs:
+      tag: ${{ steps.meta.outputs.tag }}
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: meta
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            TAG="${{ inputs.tag }}"
+          else
+            TAG="${GITHUB_REF_NAME}"
+          fi
+          VERSION="${TAG#v}"
+          CARGO_VER="$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -n 1)"
+          echo "Tag: ${TAG}, Version: ${VERSION}, Cargo.toml: ${CARGO_VER}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+  build-macos:
+    name: Package macOS (arm64 DMG)
+    runs-on: macos-15
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: '1.99.1'
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: . -> out/anyview-build/target
+
+      - name: Build and verify macOS app
+        env:
+          ANYVIEW_BUILD_ONLY: '1'
+          ANYVIEW_NO_PAUSE: '1'
+        run: bash tools/macos/编译测试.command
+
+      - name: Build and verify DMG
+        env:
+          ANYVIEW_NO_PAUSE: '1'
+        run: bash tools/macos/打包.command
+
+      - name: Stage release artifact
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          mkdir -p dist
+          DMG="$(ls out/macos/Anyview-*.dmg | head -n 1)"
+          cp "$DMG" "dist/Anyview-${VERSION}-macos-arm64.dmg"
+          ls -lh dist/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-macos
+          path: dist/Anyview-*.dmg
+
+  build-linux:
+    name: Package Linux (x86_64 tar.gz & deb)
+    runs-on: ubuntu-24.04
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install GTK 4 and libheif codec plugins
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libgtk-4-dev pkg-config libheif-plugin-libde265 libheif-plugin-dav1d
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: '1.99.1'
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Run Rust tests
+        run: cargo test --locked
+
+      - name: Build Linux release binary
+        run: |
+          cargo build --release --locked -p anyview-linux
+          strip --strip-unneeded target/release/anyview
+
+      - name: Package tar.gz and deb
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          mkdir -p dist
+          PKG_NAME="Anyview-${VERSION}-linux-x86_64"
+          STAGE="out/linux-pkg/${PKG_NAME}"
+          rm -rf out/linux-pkg
+          mkdir -p "${STAGE}/bin" \
+                   "${STAGE}/share/applications" \
+                   "${STAGE}/share/icons" \
+                   "${STAGE}/share/mime/packages" \
+                   "${STAGE}/share/thumbnailers" \
+                   "${STAGE}/share/licenses/anyview"
+
+          install -m755 target/release/anyview "${STAGE}/bin/anyview"
+          ./target/release/anyview --print-desktop-entry > "${STAGE}/share/applications/local.anyview.Anyview.desktop"
+          cp -r apps/linux/data/icons/hicolor "${STAGE}/share/icons/"
+          install -m644 apps/linux/data/mime/local.anyview.Anyview.xml "${STAGE}/share/mime/packages/local.anyview.Anyview.xml"
+          install -m644 apps/linux/data/thumbnailers/local.anyview.Anyview.thumbnailer "${STAGE}/share/thumbnailers/local.anyview.Anyview.thumbnailer"
+          install -m644 LICENSE "${STAGE}/share/licenses/anyview/LICENSE"
+          install -m644 crates/anyview-core/licenses/linux.txt "${STAGE}/share/licenses/anyview/THIRD-PARTY-NOTICES.txt"
+          install -m644 LICENSE "${STAGE}/LICENSE"
+          install -m644 crates/anyview-core/licenses/linux.txt "${STAGE}/THIRD-PARTY-NOTICES.txt"
+
+          tar -C out/linux-pkg -czf "dist/${PKG_NAME}.tar.gz" "${PKG_NAME}"
+
+          # Build Debian/Ubuntu .deb package
+          DEB_ROOT="out/linux-pkg/deb"
+          mkdir -p "${DEB_ROOT}/DEBIAN" "${DEB_ROOT}/usr"
+          cp -r "${STAGE}/bin" "${STAGE}/share" "${DEB_ROOT}/usr/"
+          INSTALLED_KB="$(du -sk "${DEB_ROOT}/usr" | cut -f1)"
+          cat > "${DEB_ROOT}/DEBIAN/control" <<EOF
+          Package: anyview
+          Version: ${VERSION}
+          Section: graphics
+          Priority: optional
+          Architecture: amd64
+          Installed-Size: ${INSTALLED_KB}
+          Depends: libgtk-4-1 (>= 4.14), libc6, libstdc++6, libglib2.0-0, libcairo2, libpango-1.0-0, libgraphene-1.0-0
+          Recommends: libheif1, libheif-plugin-libde265, libheif-plugin-dav1d
+          Maintainer: Anyview Contributors
+          Homepage: https://github.com/MUMU-DADA/anyview
+          Description: Fast, native cross-platform image viewer powered by Rust and GTK 4
+           Anyview is a lightweight desktop image viewer supporting standard, HDR,
+           design (PSD/CLIP/DDS/SVG), camera RAW, and direct ZIP/7Z/RAR archive browsing.
+          EOF
+
+          cat > "${DEB_ROOT}/DEBIAN/postinst" <<'EOF'
+          #!/bin/sh
+          set -e
+          command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database -q /usr/share/applications || true
+          command -v update-mime-database >/dev/null 2>&1 && update-mime-database /usr/share/mime || true
+          command -v gtk-update-icon-cache >/dev/null 2>&1 && gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor || true
+          EOF
+          cp "${DEB_ROOT}/DEBIAN/postinst" "${DEB_ROOT}/DEBIAN/postrm"
+          chmod 755 "${DEB_ROOT}/DEBIAN/postinst" "${DEB_ROOT}/DEBIAN/postrm"
+
+          dpkg-deb --root-owner-group --build "${DEB_ROOT}" "dist/Anyview-${VERSION}-linux-amd64.deb"
+          ls -lh dist/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-linux
+          path: |
+            dist/Anyview-*.tar.gz
+            dist/Anyview-*.deb
+
+  build-windows-core:
+    name: Build Windows Core DLLs (cross)
+    runs-on: ubuntu-24.04
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MinGW-w64, CMake, and Ninja
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends mingw-w64 cmake ninja-build
+          sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+
+      - name: Set up Rust toolchain with Windows GNU target
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: '1.99.1'
+          targets: x86_64-pc-windows-gnu
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: windows-gnu
+          workspaces: . -> target/windows-gnu
+
+      - name: Build anyview_ffi.dll and C# bindings
+        run: bash tools/windows/build-core.sh
+
+      - name: Build heif.dll (HEIC decoder)
+        run: JOBS="$(nproc)" bash tools/windows/build-heif.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-windows-core
+          path: |
+            out/windows/anyview_ffi.dll
+            out/windows/heif.dll
+            out/windows/bindings/anyview_ffi.cs
+          retention-days: 1
+
+  build-windows:
+    name: Package Windows (x64 Setup & Portable)
+    runs-on: windows-latest
+    needs: [prepare, build-windows-core]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Windows core DLLs and bindings
+        uses: actions/download-artifact@v4
+        with:
+          name: release-windows-core
+          path: out/windows
+
+      - name: Set up .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish WinUI 3 Native AOT application
+        shell: pwsh
+        run: |
+          $bindings = Join-Path $PWD 'out\windows\bindings\anyview_ffi.cs'
+          dotnet publish apps/windows/Anyview/Anyview.csproj -c Release -o out/windows/app `
+            -p:UseSharedCompilation=false "-p:AnyviewBindings=$bindings"
+          Copy-Item out/windows/anyview_ffi.dll out/windows/app/ -Force
+          Copy-Item out/windows/heif.dll out/windows/app/ -Force
+          Remove-Item out/windows/app/*.pdb -Force -ErrorAction SilentlyContinue
+
+      - name: Ensure NSIS is installed
+        shell: pwsh
+        run: |
+          $nsis = @(
+            (Get-Command makensis.exe -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source),
+            'C:\Program Files (x86)\NSIS\makensis.exe',
+            'C:\Program Files\NSIS\makensis.exe'
+          ) | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1
+          if (-not $nsis) {
+            choco install nsis -y --no-progress
+            $nsis = 'C:\Program Files (x86)\NSIS\makensis.exe'
+          }
+          & $nsis /VERSION
+          "MAKENSIS=$nsis" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Build Portable ZIP and NSIS Installer
+        shell: pwsh
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          New-Item -ItemType Directory -Force -Path dist, target/installer | Out-Null
+          $packScript = @'
+          import os, sys, zipfile
+
+          repo, version = sys.argv[1], sys.argv[2]
+          app = os.path.join(repo, "out", "windows", "app")
+          work = os.path.join(repo, "target", "installer")
+          dist = os.path.join(repo, "dist")
+
+          # 1. Generate UTF-8 BOM CRLF license files
+          for src, name in (
+              (os.path.join(repo, "LICENSE"), "LICENSE.txt"),
+              (os.path.join(repo, "crates", "anyview-core", "licenses", "windows.txt"), "THIRD-PARTY-NOTICES.txt"),
+          ):
+              with open(src, encoding="utf-8") as f:
+                  text = f.read().replace("\r\n", "\n").replace("\n", "\r\n")
+              with open(os.path.join(work, name), "w", encoding="utf-8-sig", newline="") as f:
+                  f.write(text)
+
+          # 2. Generate NSIS uninstall file list
+          files, dirs = [], []
+          for base, subdirs, names in os.walk(app):
+              subdirs.sort()
+              rel = os.path.relpath(base, app)
+              if rel != ".":
+                  dirs.append(rel)
+              for name in sorted(names):
+                  if not name.lower().endswith(".pdb"):
+                      files.append(os.path.normpath(os.path.join(rel, name)))
+          all_uninstall = files + ["LICENSE.txt", "THIRD-PARTY-NOTICES.txt"]
+          quote = lambda p: p.replace("/", "\\").replace("$", "$$")
+          with open(os.path.join(work, "uninstall-files.nsh"), "w", encoding="utf-8-sig", newline="\n") as f:
+              for path in sorted(all_uninstall):
+                  f.write(f'Delete "$INSTDIR\\{quote(path)}"\n')
+              for path in sorted(dirs, key=lambda d: (-d.count(os.sep), d)):
+                  f.write(f'RMDir "$INSTDIR\\{quote(path)}"\n')
+
+          # 3. Build Portable ZIP
+          zip_path = os.path.join(dist, f"Anyview-{version}-windows-x64-portable.zip")
+          with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+              for rel_path in sorted(files):
+                  full = os.path.join(app, rel_path)
+                  z.write(full, "Anyview/" + rel_path.replace("\\", "/"))
+              z.write(os.path.join(repo, "tools", "windows", "portable.txt"), "Anyview/portable.txt")
+              z.write(os.path.join(work, "LICENSE.txt"), "Anyview/LICENSE.txt")
+              z.write(os.path.join(work, "THIRD-PARTY-NOTICES.txt"), "Anyview/THIRD-PARTY-NOTICES.txt")
+          print(f"Created {zip_path} ({len(files) + 3} files)")
+          '@
+          Set-Content -Path target/installer/pack.py -Value $packScript -Encoding utf8
+          python target/installer/pack.py "$PWD" "$env:VERSION"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          $verParts = ($env:VERSION -replace '-.*$', '').Split('.')
+          while ($verParts.Count -lt 4) { $verParts += '0' }
+          $ver4 = ($verParts[0..3]) -join '.'
+          $outExe = Join-Path $PWD "dist\Anyview-$($env:VERSION)-windows-x64-setup.exe"
+          & $env:MAKENSIS /V2 /INPUTCHARSET UTF8 `
+            "/DAPP_VERSION=$($env:VERSION)" `
+            "/DAPP_VERSION4=$ver4" `
+            "/DAPP_DIR=$(Join-Path $PWD 'out\windows\app')" `
+            "/DAPP_ICON=$(Join-Path $PWD 'apps\windows\Anyview\Assets\Anyview.ico')" `
+            "/DWELCOME_BMP=$(Join-Path $PWD 'tools\windows\installer\welcome.bmp')" `
+            "/DUNINSTALL_LIST=$(Join-Path $PWD 'target\installer\uninstall-files.nsh')" `
+            "/DLICENSE_DIR=$(Join-Path $PWD 'target\installer')" `
+            "/DOUT_FILE=$outExe" `
+            "$(Join-Path $PWD 'tools\windows\installer\anyview.nsi')"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Get-Item dist/Anyview-*
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-windows
+          path: |
+            dist/Anyview-*-windows-x64-setup.exe
+            dist/Anyview-*-windows-x64-portable.zip
+
+  publish:
+    name: Publish GitHub Release
+    runs-on: ubuntu-24.04
+    needs: [prepare, build-macos, build-linux, build-windows]
+    steps:
+      - name: Download all release artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Collect assets and generate SHA256SUMS.txt
+        run: |
+          mkdir -p dist
+          find artifacts -type f -exec cp {} dist/ \;
+          (cd dist && sha256sum Anyview-* > SHA256SUMS.txt)
+          ls -lh dist/
+          cat dist/SHA256SUMS.txt
+
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.prepare.outputs.tag }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          cat > release-notes.md <<EOF
+          ## Anyview ${TAG}
+
+          Cross-platform native image viewer powered by a shared Rust core.
+
+          ### Downloads
+          - **macOS (Apple Silicon, macOS 14+):** \`Anyview-${VERSION}-macos-arm64.dmg\` *(ad-hoc signed; right-click or open via Privacy & Security on first launch)*
+          - **Windows (x64 Installer):** \`Anyview-${VERSION}-windows-x64-setup.exe\` *(per-user install, no admin rights required, includes Explorer thumbnails & optional HEIC support)*
+          - **Windows (x64 Portable):** \`Anyview-${VERSION}-windows-x64-portable.zip\` *(stores settings in local \`data/\` folder)*
+          - **Linux (Ubuntu 24.04+ / Debian amd64):** \`Anyview-${VERSION}-linux-amd64.deb\`
+          - **Linux (Generic x86_64, GTK 4.14+):** \`Anyview-${VERSION}-linux-x86_64.tar.gz\`
+          - **Checksums:** \`SHA256SUMS.txt\`
+
+          ---
+
+          ### 下载说明
+          - **macOS（Apple 芯片，macOS 14+）**：\`Anyview-${VERSION}-macos-arm64.dmg\`（本机签名，首次打开请在「系统设置 › 隐私与安全性」中点击「仍要打开」）
+          - **Windows 安装版（x64）**：\`Anyview-${VERSION}-windows-x64-setup.exe\`（当前用户安装，无需管理员权限，含资源管理器缩略图与 HEIC 支持）
+          - **Windows 免安装便携版（x64）**：\`Anyview-${VERSION}-windows-x64-portable.zip\`（配置保存在程序旁的 \`data/\` 目录）
+          - **Linux（Ubuntu 24.04+ / Debian amd64）**：\`Anyview-${VERSION}-linux-amd64.deb\`
+          - **Linux 通用包（x86_64，GTK 4.14+）**：\`Anyview-${VERSION}-linux-x86_64.tar.gz\`
+          - **校验和**：\`SHA256SUMS.txt\`
+          EOF
+
+          if gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            gh release upload "${TAG}" dist/* --clobber --repo "${GITHUB_REPOSITORY}"
+            gh release edit "${TAG}" --notes-file release-notes.md --repo "${GITHUB_REPOSITORY}"
+          else
+            gh release create "${TAG}" dist/* \
+              --repo "${GITHUB_REPOSITORY}" \
+              --title "Anyview ${TAG}" \
+              --notes-file release-notes.md
+          fi

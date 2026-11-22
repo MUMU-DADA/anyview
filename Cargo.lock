@@ -67,7 +67,7 @@ checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 
 [[package]]
 name = "anyview-core"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "anyview-jxr",
  "anyview-libraw",
@@ -98,7 +98,7 @@ dependencies = [
 
 [[package]]
 name = "anyview-ffi"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "anyview-core",
  "image",
@@ -107,7 +107,7 @@ dependencies = [
 
 [[package]]
 name = "anyview-fixtures"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "anyview-core",
  "flate2",
@@ -121,21 +121,21 @@ dependencies = [
 
 [[package]]
 name = "anyview-jxr"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "cc",
 ]
 
 [[package]]
 name = "anyview-libraw"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "cc",
 ]
 
 [[package]]
 name = "anyview-linux"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "anyview-core",
  "async-channel",
@@ -2736,7 +2736,7 @@ dependencies = [
 
 [[package]]
 name = "uniffi-bindgen"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "uniffi",
 ]

@@ -127,10 +127,10 @@ Section "$(TextMain)" SecMain
   ${EndIf}
   !insertmacro WaitUntilClosed
   SetOutPath "$INSTDIR"
-  File /r /x *.pdb "${APP_DIR}/*"
+  File /r /x *.pdb "${APP_DIR}\*"
   ; 许可证：build-installer.sh 换成 Windows 换行的两份。
-  File "${LICENSE_DIR}/LICENSE.txt"
-  File "${LICENSE_DIR}/THIRD-PARTY-NOTICES.txt"
+  File "${LICENSE_DIR}\LICENSE.txt"
+  File "${LICENSE_DIR}\THIRD-PARTY-NOTICES.txt"
   WriteUninstaller "$INSTDIR\uninstall.exe"
   ; 登记到系统。装好后的大小（KB）显示在“应用和功能”里。
   ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2

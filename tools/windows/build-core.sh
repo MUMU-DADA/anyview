@@ -13,9 +13,27 @@ export CXX_x86_64_pc_windows_gnu=x86_64-w64-mingw32-g++
 export AR_x86_64_pc_windows_gnu=x86_64-w64-mingw32-ar
 # unrar 的源代码按 Windows 的大小写引用 PowrProf.h、Wbemidl.h；mingw 的是小写的。
 export CXXFLAGS_x86_64_pc_windows_gnu="-I$REPO/tools/windows/mingw-shim"
+CARGO="${CARGO:-$(command -v cargo || echo "$HOME/.cargo/bin/cargo")}"
+CARGO_HOME_DIR="${CARGO_HOME:-$HOME/.cargo}"
 # unrar_sys 的构建脚本按"编译它的机器"判断是不是 Windows（cfg!(windows)），在 Linux 上交叉编译时漏掉了
 # isnt.cpp 和几个系统库：这里自己补上（同样的编译选项）。
-UNRAR="$(ls -d "$HOME"/.cargo/registry/src/*/unrar_sys-0.5.8 | head -n 1)"
+UNRAR="$(ls -d "$CARGO_HOME_DIR"/registry/src/*/unrar_sys-0.5.8 2>/dev/null | head -n 1 || true)"
+if [[ -z "$UNRAR" ]]; then
+    "$CARGO" fetch --locked
+    UNRAR="$(ls -d "$CARGO_HOME_DIR"/registry/src/*/unrar_sys-0.5.8 2>/dev/null | head -n 1 || true)"
+fi
+if [[ -z "$UNRAR" ]]; then
+    CRATE_TAR="$(ls "$CARGO_HOME_DIR"/registry/cache/*/unrar_sys-0.5.8.crate 2>/dev/null | head -n 1 || true)"
+    if [[ -n "$CRATE_TAR" ]]; then
+        mkdir -p "$CARGO_TARGET_DIR/unrar-src"
+        tar -xzf "$CRATE_TAR" -C "$CARGO_TARGET_DIR/unrar-src"
+        UNRAR="$CARGO_TARGET_DIR/unrar-src/unrar_sys-0.5.8"
+    fi
+fi
+if [[ -z "$UNRAR" || ! -f "$UNRAR/vendor/unrar/isnt.cpp" ]]; then
+    echo "找不到 unrar_sys-0.5.8 源码目录" >&2
+    exit 1
+fi
 SHIM_OBJ="$CARGO_TARGET_DIR/unrar-isnt.o"
 mkdir -p "$CARGO_TARGET_DIR"
 x86_64-w64-mingw32-g++ -O2 -std=c++14 -w -I"$REPO/tools/windows/mingw-shim" \
@@ -25,10 +43,23 @@ x86_64-w64-mingw32-g++ -O2 -std=c++14 -w -I"$REPO/tools/windows/mingw-shim" \
 # 排在搜索路径最前面（-L 对所有 -l 都起作用），线程库就静态链接进去了。
 STATIC_LIBS="$CARGO_TARGET_DIR/static-libs"
 mkdir -p "$STATIC_LIBS"
-cp /usr/x86_64-w64-mingw32/lib/libwinpthread.a "$STATIC_LIBS/libpthread.dll.a"
+WINPTHREAD="$(x86_64-w64-mingw32-gcc -print-file-name=libwinpthread.a)"
+if [[ ! -f "$WINPTHREAD" ]]; then
+    for cand in /usr/x86_64-w64-mingw32/lib/libwinpthread.a /usr/lib/gcc/x86_64-w64-mingw32/*-posix/libwinpthread.a; do
+        if [[ -f "$cand" ]]; then
+            WINPTHREAD="$cand"
+            break
+        fi
+    done
+fi
+if [[ ! -f "$WINPTHREAD" ]]; then
+    echo "找不到 libwinpthread.a（请安装 mingw-w64 并使用 posix 线程版本）" >&2
+    exit 1
+fi
+cp "$WINPTHREAD" "$STATIC_LIBS/libpthread.dll.a"
 # 这些链接选项只给最后的 DLL（`cargo rustc` 的 `--` 之后）；补上的目标文件后面要跟它用到的库。
 # C++ 运行库、libgcc 静态链接，DLL 只依赖 Windows 自带的系统库。
-"$HOME/.cargo/bin/cargo" rustc --release --target x86_64-pc-windows-gnu -p anyview-ffi --crate-type cdylib -- \
+"$CARGO" rustc --locked --release --target x86_64-pc-windows-gnu -p anyview-ffi --crate-type cdylib -- \
     -C strip=symbols -C link-arg=-L"$STATIC_LIBS" \
     -C link-arg=-static-libgcc -C link-arg=-static-libstdc++ \
     -C link-arg="$SHIM_OBJ" \
@@ -44,7 +75,7 @@ ls -l "$REPO/out/windows/anyview_ffi.dll"
 # C# 绑定：用 third_party 里的 uniffi-bindgen-cs（在这台机器上编译）从刚编好的 DLL
 # 读出接口，生成 out/windows/bindings/anyview_ffi.cs，绑定和 DLL 总是同一次编译的。
 # 它用 cargo metadata 找各 crate 的 uniffi.toml，所以在仓库根目录运行。
-"$HOME/.cargo/bin/cargo" build --release --locked -p uniffi-bindgen-cs
+"$CARGO" build --release --locked -p uniffi-bindgen-cs
 rm -rf "$REPO/out/windows/bindings"
 mkdir -p "$REPO/out/windows/bindings"
 "$CARGO_TARGET_DIR/release/uniffi-bindgen-cs" --library "$REPO/out/windows/anyview_ffi.dll" \

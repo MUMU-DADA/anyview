@@ -1,0 +1,148 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  core-and-linux:
+    name: Rust Core & Linux (GTK 4)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install GTK 4 and libheif codec plugins
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libgtk-4-dev pkg-config libheif-plugin-libde265 libheif-plugin-dav1d
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: '1.99.1'
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Run Rust core, FFI, and fixtures tests
+        run: cargo test --locked
+
+      - name: Build Linux GTK 4 application
+        run: cargo build --release --locked -p anyview-linux
+
+      - name: Verify desktop entry generation
+        run: ./target/release/anyview --print-desktop-entry | head -n 20
+
+  macos:
+    name: macOS (arm64 AppKit & Quick Look)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: '1.99.1'
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: . -> out/anyview-build/target
+
+      - name: Build and verify macOS app, Quick Look extensions, and Swift bindings
+        env:
+          ANYVIEW_BUILD_ONLY: '1'
+          ANYVIEW_NO_PAUSE: '1'
+        run: bash tools/macos/编译测试.command
+
+      - name: Verify DMG packaging
+        env:
+          ANYVIEW_NO_PAUSE: '1'
+        run: bash tools/macos/打包.command
+
+  windows-core:
+    name: Windows Core DLL & Bindings (cross)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MinGW-w64, CMake, and Ninja
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends mingw-w64 cmake ninja-build
+          sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+
+      - name: Set up Rust toolchain with Windows GNU target
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: '1.99.1'
+          targets: x86_64-pc-windows-gnu
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: windows-gnu
+          workspaces: . -> target/windows-gnu
+
+      - name: Build anyview_ffi.dll and C# UniFFI bindings
+        run: bash tools/windows/build-core.sh
+
+      - name: Build optional HEIC decoder (heif.dll)
+        run: JOBS="$(nproc)" bash tools/windows/build-heif.sh
+
+      - name: Generate test fixtures for Windows binding check
+        run: cargo run --release --locked -p anyview-fixtures -- --out out/windows/fixtures
+
+      - name: Upload Windows core and fixtures
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-core-ci
+          path: |
+            out/windows/anyview_ffi.dll
+            out/windows/heif.dll
+            out/windows/bindings/anyview_ffi.cs
+            out/windows/fixtures
+          retention-days: 1
+
+  windows-app:
+    name: Windows App (WinUI 3 Native AOT & BindingCheck)
+    runs-on: windows-latest
+    needs: windows-core
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Windows core and fixtures
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-core-ci
+          path: out/windows
+
+      - name: Set up .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish WinUI 3 Native AOT application
+        shell: pwsh
+        run: |
+          $bindings = Join-Path $PWD 'out\windows\bindings\anyview_ffi.cs'
+          dotnet publish apps/windows/Anyview/Anyview.csproj -c Release -o out/windows/app `
+            -p:UseSharedCompilation=false "-p:AnyviewBindings=$bindings"
+          Copy-Item out/windows/anyview_ffi.dll out/windows/app/ -Force
+          Copy-Item out/windows/heif.dll out/windows/app/ -Force
+          Get-Item out/windows/app/Anyview.exe, out/windows/app/anyview_ffi.dll, out/windows/app/heif.dll
+
+      - name: Build and run C# UniFFI BindingCheck
+        shell: pwsh
+        run: |
+          $bindings = Join-Path $PWD 'out\windows\bindings\anyview_ffi.cs'
+          dotnet publish apps/windows/binding-check/BindingCheck.csproj -c Release -o out/windows/binding-check `
+            -p:UseSharedCompilation=false "-p:AnyviewBindings=$bindings"
+          Copy-Item out/windows/anyview_ffi.dll out/windows/binding-check/ -Force
+          Copy-Item out/windows/heif.dll out/windows/binding-check/ -Force
+          & out/windows/binding-check/BindingCheck.exe (Join-Path $PWD 'out\windows\fixtures')

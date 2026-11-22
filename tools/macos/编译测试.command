@@ -262,7 +262,7 @@ build_rust_core() {
     cargo build --locked --release --manifest-path "${manifest}" -p anyview-ffi || return 1
     # 记下链接 Rust 静态库还需要的系统库，给 Swift 链接时用。没有重新编译时 rustc 不打印，就沿用上次记下的。
     local note
-    note="$(cargo rustc --locked --release --manifest-path "${manifest}" -p anyview-ffi --crate-type staticlib \
+    note="$(CARGO_TERM_COLOR=never cargo rustc --color=never --locked --release --manifest-path "${manifest}" -p anyview-ffi --crate-type staticlib \
         -- --print native-static-libs 2>&1 | sed -n 's/.*native-static-libs: //p' | tail -n 1)"
     if [[ -n "${note}" ]]; then
         printf '%s' "${note}" >"${build}/native-libs.txt"
@@ -369,7 +369,7 @@ assemble_app() {
     plutil -lint "${app_local}/Contents/Info.plist" || return 1
     # 应用图标：Info.plist 的 CFBundleIconFile 指向它。
     cp "${root}/apps/macos/Resources/AppIcon.icns" "${app_local}/Contents/Resources/AppIcon.icns" || return 1
-    # 各语言的文件类型名（访达“种类”一栏，；由核心的测试生成）。
+    # 各语言的文件类型名（访达“种类”一栏，由核心测试校验生成）。
     ditto "${root}/apps/macos/Resources/Localized/Anyview" "${app_local}/Contents/Resources" || return 1
     # 许可证：Anyview 的 MIT 许可证和 macOS 版的第三方软件许可证（程序里的“帮助 › 开源许可”显示同样的内容）。
     cp "${root}/LICENSE" "${app_local}/Contents/Resources/LICENSE.txt" || return 1
@@ -425,9 +425,7 @@ generate_fixtures() {
     done
 }
 
-# 打开程序自检：程序自己打开、切换、截图、写报告，然后退出。报告先写在 Mac 本地，做完再复制进结果的 <名字>/ 目录。
-# 运行的是 Mac 本地 out/anyview-build/ 里的 Anyview.app：从网络共享启动时，程序代码要边运行边从网络读，
-# 冷启动慢一秒多，测不出真实的速度。
+# 打开程序自检：程序自己打开、切换、截图、写报告，然后退出。报告先写在本地临时目录，做完再复制进结果目录。
 # 注意 bash 3.2 在 set -u 下展开空的 "$@" 会报错，所以用 ${1+"$@"}。
 self_test() {  # self_test <名字> [应用参数…]
     local name="$1" waited=0
