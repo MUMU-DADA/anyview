@@ -349,7 +349,7 @@ jobs:
       - name: Collect assets and generate SHA256SUMS.txt
         run: |
           mkdir -p dist
-          find artifacts -type f -exec cp {} dist/ \;
+          find artifacts/release-macos artifacts/release-linux artifacts/release-windows -type f -exec cp {} dist/ \;
           (cd dist && sha256sum Anyview-* > SHA256SUMS.txt)
           ls -lh dist/
           cat dist/SHA256SUMS.txt
