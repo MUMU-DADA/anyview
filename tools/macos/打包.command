@@ -27,7 +27,8 @@ fi
 summary="${results}/summary.txt"
 app="${build}/Anyview.app"
 staging="${build}/dmg-staging"
-mount_point="${build}/dmg-check"
+sys_tmp="$(getconf DARWIN_USER_TEMP_DIR 2>/dev/null)"
+sys_tmp="${sys_tmp:-/tmp}"
 
 finished=0
 pause() {
@@ -99,30 +100,76 @@ make_staging() {
 step "准备 DMG 的内容（Anyview.app 和“应用程序”的替身）" dmg-staging.txt make_staging || finish 1
 
 make_dmg() {
-    rm -f "${dmg_local}" || return 1
-    hdiutil create -volname "Anyview ${version}" -srcfolder "${staging}" -fs HFS+ -format UDZO -ov "${dmg_local}"
+    # GitHub Actions macOS Runner 上 hdiutil create -srcfolder 偶发与 Spotlight/后台服务竞争报 Resource busy，
+    # 禁用卷内 Spotlight 索引并做有限次退避重试。
+    local attempt=1 max_attempts=5 wait_sec=0
+    while [[ "${attempt}" -le "${max_attempts}" ]]; do
+        rm -f "${dmg_local}" || return 1
+        if hdiutil create -volname "Anyview ${version}" -srcfolder "${staging}" -fs HFS+ -format UDZO -nospotlight -ov "${dmg_local}"; then
+            return 0
+        fi
+        if [[ "${attempt}" -lt "${max_attempts}" ]]; then
+            wait_sec=$(( attempt * 3 ))
+            echo "hdiutil create 第 ${attempt}/${max_attempts} 次失败，${wait_sec} 秒后重试…"
+            sleep "${wait_sec}"
+        fi
+        attempt=$(( attempt + 1 ))
+    done
+    return 1
 }
 step "做成压缩的 DMG（hdiutil）" dmg-create.txt make_dmg || finish 1
 
 # 核对：校验和对、能挂上、里面的程序签名完整，挂上看完马上推出。
 check_dmg() {
     hdiutil verify "${dmg_local}" || return 1
-    rm -rf "${mount_point}" && mkdir -p "${mount_point}" || return 1
-    hdiutil attach -readonly -nobrowse -noautoopen -mountpoint "${mount_point}" "${dmg_local}" || return 1
+    # 挂载点放在系统盘临时目录：仓库若位于带 noowners 的外置盘，hdiutil attach 到仓库内目录会被拒绝。
+    local check_mount=""
+    check_mount="$(mktemp -d "${sys_tmp%/}/anyview-dmg-check.XXXXXX")" || return 1
+    local attach_attempt=1
+    while [[ "${attach_attempt}" -le 3 ]]; do
+        if hdiutil attach -readonly -nobrowse -noautoopen -mountpoint "${check_mount}" "${dmg_local}"; then
+            break
+        fi
+        if [[ "${attach_attempt}" -eq 3 ]]; then
+            rmdir "${check_mount}" 2>/dev/null || true
+            return 1
+        fi
+        echo "hdiutil attach 第 ${attach_attempt}/3 次失败，2 秒后重试…"
+        sleep 2
+        attach_attempt=$(( attach_attempt + 1 ))
+    done
     local status=0
-    if [[ ! -d "${mount_point}/Anyview.app" || ! -L "${mount_point}/Applications" ]]; then
+    if [[ ! -d "${check_mount}/Anyview.app" || ! -L "${check_mount}/Applications" ]]; then
         echo "DMG 里没有 Anyview.app 或 Applications 替身"
         status=1
     fi
-    codesign --verify --deep --strict --verbose=2 "${mount_point}/Anyview.app" || status=1
+    codesign --verify --deep --strict --verbose=2 "${check_mount}/Anyview.app" || status=1
     # 里面的文件不能带 Finder 信息、资源分支（签名检查不允许，拷进“应用程序”后系统不用它的扩展）。
     # 系统自动添加的 com.apple.provenance 不影响签名校验，此处忽略。
-    if xattr -lr "${mount_point}/Anyview.app" 2>/dev/null | grep -qE ': com\.apple\.(FinderInfo|ResourceFork):'; then
+    if xattr -lr "${check_mount}/Anyview.app" 2>/dev/null | grep -qE ': com\.apple\.(FinderInfo|ResourceFork):'; then
         echo "DMG 里的 Anyview.app 带着 Finder 信息或资源分支："
-        xattr -lr "${mount_point}/Anyview.app" | grep -E ': com\.apple\.(FinderInfo|ResourceFork):' | head -n 20
+        xattr -lr "${check_mount}/Anyview.app" | grep -E ': com\.apple\.(FinderInfo|ResourceFork):' | head -n 20
         status=1
     fi
-    hdiutil detach "${mount_point}" || hdiutil detach -force "${mount_point}" || status=1
+    local detach_attempt=1 detached=0
+    while [[ "${detach_attempt}" -le 3 ]]; do
+        if hdiutil detach "${check_mount}"; then
+            detached=1
+            break
+        fi
+        sleep 2
+        detach_attempt=$(( detach_attempt + 1 ))
+    done
+    if [[ "${detached}" == 0 ]]; then
+        if hdiutil detach -force "${check_mount}"; then
+            detached=1
+        else
+            status=1
+        fi
+    fi
+    if [[ "${detached}" == 1 ]]; then
+        rmdir "${check_mount}" 2>/dev/null || true
+    fi
     return "${status}"
 }
 step "核对 DMG：校验和、挂上后程序和签名都在" dmg-check.txt check_dmg || finish 1
@@ -156,6 +203,6 @@ size_mb=$(( $(stat -f %z "${dmg_local}" 2>/dev/null || echo 0) / 1048576 ))
 sha="$(shasum -a 256 "${dmg_local}" | cut -d' ' -f1)"
 say "  大小 ${size_mb} MB，SHA-256 ${sha}"
 say "  只有本机签名、没有公证：在这台 Mac 上直接用；拷到别的 Mac 上第一次打开要在“系统设置 › 隐私与安全性”里点“仍要打开”。"
-rm -rf "${staging}" "${mount_point}"
+rm -rf "${staging}"
 say "全部完成"
 finish 0
